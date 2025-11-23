@@ -123,11 +123,13 @@
   <!-- CLEANED: Removed duplicate FileName.cpp -->
   <ItemGroup>
     <ClCompile Include="FileName.cpp" />
+    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="module9.cpp" />
     <ClCompile Include="Sets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Course.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="module9.h" />
     <ClInclude Include="Sets.h" />
   </ItemGroup>
