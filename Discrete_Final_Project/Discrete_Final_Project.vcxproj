@@ -124,7 +124,7 @@
   <ItemGroup>
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="module9.cpp" />
-    <ClCompile Include="set.cpp" />
+    <ClCompile Include="Sets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Course.h" />
