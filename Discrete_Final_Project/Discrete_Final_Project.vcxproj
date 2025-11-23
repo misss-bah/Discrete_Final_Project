@@ -122,6 +122,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="FileName.cpp" />
+    <ClCompile Include="set.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Course.h" />
+    <ClInclude Include="Sets.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
