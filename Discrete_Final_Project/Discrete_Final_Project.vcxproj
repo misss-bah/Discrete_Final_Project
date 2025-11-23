@@ -124,6 +124,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FileName.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FileName.cpp" />
     <ClCompile Include="set.cpp" />
   </ItemGroup>
   <ItemGroup>
