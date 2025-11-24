@@ -125,6 +125,7 @@
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="Groups.cpp" />
     <ClCompile Include="module9.cpp" />
     <ClCompile Include="Relations.cpp" />
     <ClCompile Include="Sets.cpp" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Course.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="Groups.h" />
     <ClInclude Include="module9.h" />
     <ClInclude Include="Relations.h" />
     <ClInclude Include="Sets.h" />
