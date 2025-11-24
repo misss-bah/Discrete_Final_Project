@@ -58,8 +58,8 @@ private:
     int prereqCount;
 public:
     Course();
-    Course(const string& code, const string& name, int cred);
-    void addPrerequisite(const string& prereq);
+    Course( string code,  string name, int cred);
+    void addPrerequisite( string prereq);
     string getCode() const { return courseCode; }
     string getName() const { return courseName; }
     int getCredits() const { return credits; }
@@ -96,26 +96,23 @@ private:
     int topoSortSize;
 
     // Helper functions
-    int findCourseIndex(const string& code) const;
+    int findCourseIndex( string code) const;
     bool hasCycleUtil(int courseIdx, bool visited[], bool recStack[]);
     bool hasCycle();
     void topologicalSortUtil(int courseIdx, bool visited[], int stack[], int& stackIndex);
-    void generateSequencesRecursive(bool completed[], int completedCount,
-        DynamicArray<DynamicArray<string>>& allSequences,
-        DynamicArray<string>& currentSeq,
-        int maxDepth);
+    void generateSequencesRecursive(bool completed[], int completedCount, DynamicArray<DynamicArray<string>>& allSequences, DynamicArray<string>& currentSeq,int maxDepth);
     bool canTakeCourse(int courseIdx, bool completed[]) const;
 
     // ===== MODULE 10: CACHE HELPERS =====
-    bool checkPrereqCache(const string& courseCode, bool& result) const;
-    void addToPrereqCache(const string& courseCode, bool canTake);
+    bool checkPrereqCache( string courseCode, bool& result) const;
+    void addToPrereqCache( string courseCode, bool canTake);
     void invalidateCache();
 
 public:
     CourseScheduler();
     ~CourseScheduler();
-    void addCourse(const string& code, const string& name, int credits);
-    void addPrerequisite(const string& courseCode, const string& prereqCode);
+    void addCourse( string code,  string name, int credits);
+    void addPrerequisite( string courseCode,  string prereqCode);
     bool validatePrerequisites();
     void generateAllValidSequences(int maxCourses);
     void displayTopologicalOrder();
@@ -123,7 +120,7 @@ public:
     int getCourseCount() const { return courseCount; }
 
     // ===== MODULE 10: OPTIMIZED FUNCTIONS =====
-    bool canTakeCourseMemoized(const string& courseCode, bool completed[]);
+    bool canTakeCourseMemoized( string courseCode, bool completed[]);
     void getTopologicalOrderOptimized(int result[], int& resultSize); // Not const anymore
 };
 

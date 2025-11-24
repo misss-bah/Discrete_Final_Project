@@ -3,11 +3,11 @@ using namespace std;
 
 Course::Course() : credits(0), prereqCount(0) {}
 
-Course::Course(const string& code, const string& name, int cred)
+Course::Course( string code,  string name, int cred)
     : courseCode(code), courseName(name), credits(cred), prereqCount(0) {
 }
 
-void Course::addPrerequisite(const string& prereq) {
+void Course::addPrerequisite( string prereq) {
     if (prereqCount < MAX_PREREQUISITES) {
         prerequisites[prereqCount++] = prereq;
     }
@@ -53,14 +53,14 @@ CourseScheduler::~CourseScheduler() {
     }
 }
 
-void CourseScheduler::addCourse(const string& code, const string& name, int credits) {
+void CourseScheduler::addCourse( string code,  string name, int credits) {
     if (courseCount < MAX_COURSES) {
         courses[courseCount++] = Course(code, name, credits);
         invalidateCache(); // Invalidate cache when structure changes
     }
 }
 
-void CourseScheduler::addPrerequisite(const string& courseCode, const string& prereqCode) {
+void CourseScheduler::addPrerequisite( string courseCode,  string prereqCode) {
     int courseIdx = findCourseIndex(courseCode);
     int prereqIdx = findCourseIndex(prereqCode);
 
@@ -77,7 +77,7 @@ void CourseScheduler::addPrerequisite(const string& courseCode, const string& pr
     }
 }
 
-int CourseScheduler::findCourseIndex(const string& code) const {
+int CourseScheduler::findCourseIndex( string code) const {
     for (int i = 0; i < courseCount; i++) {
         if (courses[i].getCode() == code) {
             return i;
@@ -173,10 +173,7 @@ bool CourseScheduler::canTakeCourse(int courseIdx, bool completed[]) const {
     return true;
 }
 
-void CourseScheduler::generateSequencesRecursive(bool completed[], int completedCount,
-    DynamicArray<DynamicArray<string>>& allSequences,
-    DynamicArray<string>& currentSeq,
-    int maxDepth) {
+void CourseScheduler::generateSequencesRecursive(bool completed[], int completedCount, DynamicArray<DynamicArray<string>>& allSequences,DynamicArray<string>& currentSeq, int maxDepth) {
     if (completedCount >= maxDepth || completedCount >= courseCount) {
         allSequences.push(currentSeq);
         return;
@@ -232,7 +229,7 @@ void CourseScheduler::displayAllCourses() const {
 
 // ===== MODULE 10: CACHE HELPER FUNCTIONS =====
 
-bool CourseScheduler::checkPrereqCache(const string& courseCode, bool& result) const {
+bool CourseScheduler::checkPrereqCache( string courseCode, bool& result) const {
     for (int i = 0; i < cacheSize; i++) {
         if (prereqCache[i].courseCode == courseCode && prereqCache[i].isValid) {
             result = prereqCache[i].canTake;
@@ -242,7 +239,7 @@ bool CourseScheduler::checkPrereqCache(const string& courseCode, bool& result) c
     return false;
 }
 
-void CourseScheduler::addToPrereqCache(const string& courseCode, bool canTake) {
+void CourseScheduler::addToPrereqCache( string courseCode, bool canTake) {
     if (cacheSize < MAX_COURSES) {
         prereqCache[cacheSize].courseCode = courseCode;
         prereqCache[cacheSize].canTake = canTake;
@@ -260,7 +257,7 @@ void CourseScheduler::invalidateCache() {
 }
 
 // ===== MODULE 10: MEMOIZED PREREQUISITE CHECK =====
-bool CourseScheduler::canTakeCourseMemoized(const string& courseCode, bool completed[]) {
+bool CourseScheduler::canTakeCourseMemoized( string courseCode, bool completed[]) {
     bool cachedResult;
     if (checkPrereqCache(courseCode, cachedResult)) {
         return cachedResult; // Return cached result - O(1)
