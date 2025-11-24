@@ -17,11 +17,11 @@ private:
 
 public:
     Student();
-    Student(const string& id, const string& n, int sem);
+    Student( string id,  string n, int sem);
 
-    string getID() const;
-    string getName() const;
-    int getSemester() const;
+    string getID() const { return studentID; }
+    string getName() const { return name; }
+    int getSemester() const { return semester; }
     void display() const;
 };
 
@@ -34,13 +34,14 @@ private:
 
 public:
     StudentGroup();
-    StudentGroup(const string& name, const string& type);
+    StudentGroup( string name, string type);
 
     bool addMember(Student* student);
     void displayGroup() const;
-    int getMemberCount() const;
-    string getGroupName() const;
+    int getMemberCount() const { return memberCount; }
+    string getGroupName() const { return groupName; }
 };
+
 
 class GroupManager {
 private:
@@ -52,24 +53,23 @@ private:
     // Helper functions
     long long factorial(int n);
     long long nCr(int n, int r);
-    void generateCombinationsUtil(int start, int n, int r, int index,
-        int data[], Student* allStudents[],
-        StudentGroup& group);
+    void generateCombinationsUtil(int start, int n, int r, int index, int data[], Student* allStudents[], StudentGroup& group);
 
 public:
     GroupManager();
 
-    void addStudent(const string& id, const string& name, int semester);
+    void addStudent( string id,  string name, int semester);
     void createProjectGroups(int groupSize);
     void createLabSessions(int studentsPerLab);
-    void assignToElectives(const string& elective, int maxStudents);
+    void assignToElectives( string elective, int maxStudents);
     void displayAllStudents() const;
     void displayAllGroups() const;
-    int getStudentCount() const;
-    int getGroupCount() const;
 
+    int getStudentCount() const { return studentCount; }
+    int getGroupCount() const { return groupCount; }
     // Combination calculations
     long long calculatePossibleCombinations(int totalStudents, int groupSize);
+    void generateCombinationsUtil(int start, int r, int index, int data[], StudentGroup& group);
     void generateAllCombinations(int groupSize, int maxGroups);
 };
 

@@ -4,20 +4,8 @@ using namespace std;
 // Student implementation
 Student::Student() : semester(0) {}
 
-Student::Student(const string& id, const string& n, int sem)
+Student::Student( string id,  string n, int sem)
     : studentID(id), name(n), semester(sem) {
-}
-
-string Student::getID() const {
-    return studentID;
-}
-
-string Student::getName() const {
-    return name;
-}
-
-int Student::getSemester() const {
-    return semester;
 }
 
 void Student::display() const {
@@ -31,7 +19,7 @@ StudentGroup::StudentGroup() : memberCount(0), groupName(""), groupType("") {
     }
 }
 
-StudentGroup::StudentGroup(const string& name, const string& type)
+StudentGroup::StudentGroup( string name,  string type)
     : memberCount(0), groupName(name), groupType(type) {
     for (int i = 0; i < MAX_GROUP_SIZE; i++) {
         members[i] = nullptr;
@@ -56,18 +44,10 @@ void StudentGroup::displayGroup() const {
     }
 }
 
-int StudentGroup::getMemberCount() const {
-    return memberCount;
-}
-
-string StudentGroup::getGroupName() const {
-    return groupName;
-}
-
 // GroupManager implementation
 GroupManager::GroupManager() : studentCount(0), groupCount(0) {}
 
-void GroupManager::addStudent(const string& id, const string& name, int semester) {
+void GroupManager::addStudent( string id,  string name, int semester) {
     if (studentCount < MAX_STUDENTS) {
         students[studentCount++] = Student(id, name, semester);
     }
@@ -92,9 +72,7 @@ long long GroupManager::calculatePossibleCombinations(int totalStudents, int gro
     return nCr(totalStudents, groupSize);
 }
 
-void GroupManager::generateCombinationsUtil(int start, int n, int r, int index,
-    int data[], Student* allStudents[],
-    StudentGroup& group) {
+void GroupManager::generateCombinationsUtil(int start, int n, int r, int index,  int data[], Student* allStudents[], StudentGroup& group) {
     if (index == r) {
         for (int i = 0; i < r; i++) {
             group.addMember(allStudents[data[i]]);
@@ -155,7 +133,7 @@ void GroupManager::createLabSessions(int studentsPerLab) {
     cout << "Created " << numLabs << " lab sessions" << endl;
 }
 
-void GroupManager::assignToElectives(const string& elective, int maxStudents) {
+void GroupManager::assignToElectives( string elective, int maxStudents) {
     cout << "\n=== Assigning to Elective: " << elective << " ===" << endl;
 
     if (groupCount >= MAX_GROUPS) {
@@ -190,35 +168,50 @@ void GroupManager::displayAllGroups() const {
         groups[i].displayGroup();
     }
 }
-
-int GroupManager::getStudentCount() const {
-    return studentCount;
-}
-
-int GroupManager::getGroupCount() const {
-    return groupCount;
-}
-
-void generateAllCombinations() {
-    DynamicArray <int> arr;
-    int total = 1;
-    for (int i = 0; i < size; i++) {
-        total *= 2;
-    }
-
-    cout << "All possible combinations:\n";
-
-    // Loop through each possible subset number
-    for (int mask = 0; mask < total; mask++) {
-        cout << "{ ";
-
-        // Check each bit to decide whether to include arr[i]
-        for (int i = 0; i < size; i++) {
-            if ((mask >> i) & 1) {
-                cout << arr[i] << " ";
-            }
+// Helper recursive function (private to GroupManager)
+void GroupManager::generateCombinationsUtil(int start, int r, int index,
+    int data[], StudentGroup& group) {
+    if (index == r) {
+        // Add the selected students to the group
+        for (int i = 0; i < r; i++) {
+            group.addMember(&students[data[i]]);
         }
-
-        cout << "}\n";
+        return;
     }
+
+    for (int i = start; i <= studentCount - r + index; i++) {
+        data[index] = i;
+        generateCombinationsUtil(i + 1, r, index + 1, data, group);
+    }
+}
+
+void GroupManager::generateAllCombinations(int groupSize, int maxDisplay) {
+    cout << "\n=== Generating All Possible Combinations ===" << endl;
+    cout << "Group Size: " << groupSize << endl;
+
+    if (studentCount < groupSize) {
+        cout << "Not enough students to form a group of this size." << endl;
+        return;
+    }
+
+    long long totalComb = calculatePossibleCombinations(studentCount, groupSize);
+    cout << "Total Possible Combinations: " << totalComb << endl;
+
+    if (maxDisplay > 10) {
+        cout << "(Showing first 10 combinations only for display)" << endl;
+        maxDisplay = 10;
+    }
+
+    int data[MAX_GROUP_SIZE];  // indices of selected students
+    int displayed = 0;
+
+    // Generate each combination sequentially
+    for (int start = 0; start <= studentCount - groupSize && displayed < maxDisplay; start++) {
+        StudentGroup newGroup("Project Group " + to_string(groupCount + 1), "Project");
+        generateCombinationsUtil(start, groupSize, 0, data, newGroup);
+        groups[groupCount++] = newGroup;
+        displayed++;
+    }
+
+    cout << "Created " << displayed << " groups (up to display limit)" << endl;
 }
