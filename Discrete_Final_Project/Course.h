@@ -3,7 +3,7 @@
 
 #include<iostream>
 #include<string>
-
+using namespace std;
 const int MAX_COURSES = 100;
 const int MAX_PREREQUISITES = 10;
 const int MAX_SEQUENCES = 1000;
@@ -81,12 +81,22 @@ private:
 	AdjNode* adjacencyList[MAX_COURSES];
 	PrereqCache prereqCache[MAX_COURSES];
 	int cacheSize;
+
+	// ===== MODULE 10: DYNAMIC PROGRAMMING (without mutable) =====
+	bool topoSortComputed;
+	int topoSortResult[MAX_COURSES];
+	int topoSortSize;
+
 	int findCourseIndex(string code) const;
 	bool hasCycleUtil(int courseIdx, bool visited[], bool recStack[]);
 	bool hasCycle();
 	void topologicalSortUtil(int courseIdx, bool visited[], int stack[], int& stackIndex);
 	void generateSequencesRecursive(bool completed[], int completedCount,DynamicArray<DynamicArray<string>>& allSequences,DynamicArray<string>& currentSeq,int maxDepth);
 	bool canTakeCourse(int courseIdx, bool completed[]) const;
+	// ===== MODULE 10: CACHE HELPERS =====
+	bool checkPrereqCache(const string& courseCode, bool& result) const;
+	void addToPrereqCache(const string& courseCode, bool canTake);
+	void invalidateCache();
 
 public:
 	CourseScheduler();
@@ -99,7 +109,9 @@ public:
 	void generateAllValidSequences(int maxCourses);
 	void displayTopologicalOrder();
 	void displayAllCourses() const;
-
+	// ===== MODULE 10: OPTIMIZED FUNCTIONS =====
+	bool canTakeCourseMemoized(const string& courseCode, bool completed[]);
+	void getTopologicalOrderOptimized(int result[], int& resultSize); // Not const anymore
 };
 
 #endif 

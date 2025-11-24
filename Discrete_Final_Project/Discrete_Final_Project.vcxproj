@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="set.cpp" />
   </ItemGroup>
