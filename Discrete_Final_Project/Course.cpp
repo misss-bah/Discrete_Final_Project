@@ -1,13 +1,14 @@
+
 #include "Course.h"
 using namespace std;
 
 Course::Course() : credits(0), prereqCount(0) {}
 
-Course::Course( string code,  string name, int cred)
+Course::Course(string code, string name, int cred)
     : courseCode(code), courseName(name), credits(cred), prereqCount(0) {
 }
 
-void Course::addPrerequisite( string prereq) {
+void Course::addPrerequisite(string prereq) {
     if (prereqCount < MAX_PREREQUISITES) {
         prerequisites[prereqCount++] = prereq;
     }
@@ -35,10 +36,14 @@ void Course::display() const {
 }
 
 // CourseScheduler implementation
-CourseScheduler::CourseScheduler() : courseCount(0), cacheSize(0), topoSortComputed(false), topoSortSize(0) {
+CourseScheduler::CourseScheduler()
+    : courseCount(0), cacheSize(0), topoSortComputed(false), topoSortSize(0) {
     for (int i = 0; i < MAX_COURSES; i++) {
         adjacencyList[i] = nullptr;
+        prereqCache[i].courseCode = "";
+        prereqCache[i].canTake = false;
         prereqCache[i].isValid = false;
+        topoSortResult[i] = -1;
     }
 }
 
@@ -53,35 +58,32 @@ CourseScheduler::~CourseScheduler() {
     }
 }
 
-void CourseScheduler::addCourse( string code,  string name, int credits) {
+void CourseScheduler::addCourse(string code, string name, int credits) {
     if (courseCount < MAX_COURSES) {
         courses[courseCount++] = Course(code, name, credits);
-        invalidateCache(); // Invalidate cache when structure changes
+        invalidateCache();
     }
 }
 
-void CourseScheduler::addPrerequisite( string courseCode,  string prereqCode) {
+void CourseScheduler::addPrerequisite(string courseCode, string prereqCode) {
     int courseIdx = findCourseIndex(courseCode);
     int prereqIdx = findCourseIndex(prereqCode);
 
     if (courseIdx != -1 && prereqIdx != -1) {
         courses[courseIdx].addPrerequisite(prereqCode);
 
-        // Add to adjacency list (prereq -> course)
         AdjNode* newNode = new AdjNode;
         newNode->courseIndex = courseIdx;
         newNode->next = adjacencyList[prereqIdx];
         adjacencyList[prereqIdx] = newNode;
 
-        invalidateCache(); // Invalidate cache
+        invalidateCache();
     }
 }
 
-int CourseScheduler::findCourseIndex( string code) const {
+int CourseScheduler::findCourseIndex(string code) const {
     for (int i = 0; i < courseCount; i++) {
-        if (courses[i].getCode() == code) {
-            return i;
-        }
+        if (courses[i].getCode() == code) return i;
     }
     return -1;
 }
@@ -93,9 +95,7 @@ bool CourseScheduler::hasCycleUtil(int courseIdx, bool visited[], bool recStack[
     AdjNode* current = adjacencyList[courseIdx];
     while (current) {
         if (!visited[current->courseIndex]) {
-            if (hasCycleUtil(current->courseIndex, visited, recStack)) {
-                return true;
-            }
+            if (hasCycleUtil(current->courseIndex, visited, recStack)) return true;
         }
         else if (recStack[current->courseIndex]) {
             return true;
@@ -113,9 +113,7 @@ bool CourseScheduler::hasCycle() {
 
     for (int i = 0; i < courseCount; i++) {
         if (!visited[i]) {
-            if (hasCycleUtil(i, visited, recStack)) {
-                return true;
-            }
+            if (hasCycleUtil(i, visited, recStack)) return true;
         }
     }
     return false;
@@ -132,7 +130,6 @@ bool CourseScheduler::validatePrerequisites() {
 
 void CourseScheduler::topologicalSortUtil(int courseIdx, bool visited[], int stack[], int& stackIndex) {
     visited[courseIdx] = true;
-
     AdjNode* current = adjacencyList[courseIdx];
     while (current) {
         if (!visited[current->courseIndex]) {
@@ -140,7 +137,6 @@ void CourseScheduler::topologicalSortUtil(int courseIdx, bool visited[], int sta
         }
         current = current->next;
     }
-
     stack[stackIndex++] = courseIdx;
 }
 
@@ -150,9 +146,7 @@ void CourseScheduler::displayTopologicalOrder() {
     int stackIndex = 0;
 
     for (int i = 0; i < courseCount; i++) {
-        if (!visited[i]) {
-            topologicalSortUtil(i, visited, stack, stackIndex);
-        }
+        if (!visited[i]) topologicalSortUtil(i, visited, stack, stackIndex);
     }
 
     cout << "\n=== Topological Order (Valid Course Sequence) ===" << endl;
@@ -166,16 +160,22 @@ bool CourseScheduler::canTakeCourse(int courseIdx, bool completed[]) const {
     for (int i = 0; i < courses[courseIdx].getPrereqCount(); i++) {
         string prereq = courses[courseIdx].getPrerequisite(i);
         int prereqIdx = findCourseIndex(prereq);
-        if (prereqIdx != -1 && !completed[prereqIdx]) {
-            return false;
-        }
+        if (prereqIdx != -1 && !completed[prereqIdx]) return false;
     }
     return true;
 }
 
-void CourseScheduler::generateSequencesRecursive(bool completed[], int completedCount, DynamicArray<DynamicArray<string>>& allSequences,DynamicArray<string>& currentSeq, int maxDepth) {
+void CourseScheduler::generateSequencesRecursive(
+    bool completed[],
+    int completedCount,
+    DynamicArray<DynamicArray<string>>& allSequences,
+    DynamicArray<string>& currentSeq,
+    int maxDepth,
+    int maxSequences
+) {
+    if (allSequences.getSize() >= maxSequences) return;
     if (completedCount >= maxDepth || completedCount >= courseCount) {
-        allSequences.push(currentSeq);
+        if (currentSeq.getSize() > 0) allSequences.push(currentSeq);
         return;
     }
 
@@ -185,51 +185,57 @@ void CourseScheduler::generateSequencesRecursive(bool completed[], int completed
             foundAvailable = true;
             completed[i] = true;
             currentSeq.push(courses[i].getCode());
-            generateSequencesRecursive(completed, completedCount + 1, allSequences, currentSeq, maxDepth);
+
+            generateSequencesRecursive(completed, completedCount + 1, allSequences, currentSeq, maxDepth, maxSequences);
+
             completed[i] = false;
-            currentSeq.getSize() > 0 ? currentSeq.clear() : void();
+            currentSeq.pop();
         }
     }
 
-    if (!foundAvailable && completedCount > 0) {
-        allSequences.push(currentSeq);
-    }
+    if (!foundAvailable && completedCount > 0) allSequences.push(currentSeq);
 }
 
 void CourseScheduler::generateAllValidSequences(int maxCourses) {
+    if (maxCourses > courseCount) maxCourses = courseCount;
+
+    int maxSequences;
+    cout << "Enter how many sequences you want to generate: ";
+
+    if (!(cin >> maxSequences) || maxSequences <= 0) {
+        cin.clear();
+        string discard;
+        getline(cin, discard); // manual discard, no <limits>
+        cout << "Invalid number of sequences! Returning to menu.\n";
+        return;
+    }
+
     DynamicArray<DynamicArray<string>> allSequences;
     DynamicArray<string> currentSeq;
     bool completed[MAX_COURSES] = { false };
 
-    cout << "\n=== Generating Valid Course Sequences (Max " << maxCourses << " courses) ===" << endl;
-    generateSequencesRecursive(completed, 0, allSequences, currentSeq, maxCourses);
+    cout << "\n=== Generating Valid Course Sequences (Max " << maxCourses << " courses) ===\n";
 
-    cout << "Total sequences generated: " << allSequences.getSize() << endl;
-    for (int i = 0; i < allSequences.getSize() && i < 10; i++) {
-        cout << "\nSequence " << (i + 1) << ": ";
-        for (int j = 0; j < allSequences[i].getSize(); j++) {
-            cout << allSequences[i][j];
-            if (j < allSequences[i].getSize() - 1) cout << " -> ";
+    generateSequencesRecursive(completed, 0, allSequences, currentSeq, maxCourses, maxSequences);
+
+    if (allSequences.getSize() == 0) {
+        cout << "No valid sequences could be generated with the current courses and prerequisites.\n";
+    }
+    else {
+        cout << "Total sequences generated: " << allSequences.getSize() << endl;
+        for (int i = 0; i < allSequences.getSize(); i++) {
+            cout << "\nSequence " << (i + 1) << ": ";
+            for (int j = 0; j < allSequences[i].getSize(); j++) {
+                cout << allSequences[i][j];
+                if (j < allSequences[i].getSize() - 1) cout << " -> ";
+            }
+            cout << endl;
         }
-        cout << endl;
     }
-
-    if (allSequences.getSize() > 10) {
-        cout << "... (showing first 10 sequences only)" << endl;
-    }
+    cout << "\nReturning to menu...\n";
 }
 
-void CourseScheduler::displayAllCourses() const {
-    cout << "\n=== All Courses ===" << endl;
-    for (int i = 0; i < courseCount; i++) {
-        cout << "\n" << (i + 1) << ". ";
-        courses[i].display();
-    }
-}
-
-// ===== MODULE 10: CACHE HELPER FUNCTIONS =====
-
-bool CourseScheduler::checkPrereqCache( string courseCode, bool& result) const {
+bool CourseScheduler::checkPrereqCache(string courseCode, bool& result) const {
     for (int i = 0; i < cacheSize; i++) {
         if (prereqCache[i].courseCode == courseCode && prereqCache[i].isValid) {
             result = prereqCache[i].canTake;
@@ -239,7 +245,7 @@ bool CourseScheduler::checkPrereqCache( string courseCode, bool& result) const {
     return false;
 }
 
-void CourseScheduler::addToPrereqCache( string courseCode, bool canTake) {
+void CourseScheduler::addToPrereqCache(string courseCode, bool canTake) {
     if (cacheSize < MAX_COURSES) {
         prereqCache[cacheSize].courseCode = courseCode;
         prereqCache[cacheSize].canTake = canTake;
@@ -251,17 +257,12 @@ void CourseScheduler::addToPrereqCache( string courseCode, bool canTake) {
 void CourseScheduler::invalidateCache() {
     cacheSize = 0;
     topoSortComputed = false;
-    for (int i = 0; i < MAX_COURSES; i++) {
-        prereqCache[i].isValid = false;
-    }
+    for (int i = 0; i < MAX_COURSES; i++) prereqCache[i].isValid = false;
 }
 
-// ===== MODULE 10: MEMOIZED PREREQUISITE CHECK =====
-bool CourseScheduler::canTakeCourseMemoized( string courseCode, bool completed[]) {
+bool CourseScheduler::canTakeCourseMemoized(string courseCode, bool completed[]) {
     bool cachedResult;
-    if (checkPrereqCache(courseCode, cachedResult)) {
-        return cachedResult; // Return cached result - O(1)
-    }
+    if (checkPrereqCache(courseCode, cachedResult)) return cachedResult;
 
     int courseIdx = findCourseIndex(courseCode);
     if (courseIdx == -1) return false;
@@ -271,29 +272,29 @@ bool CourseScheduler::canTakeCourseMemoized( string courseCode, bool completed[]
     return result;
 }
 
-// ===== MODULE 10: OPTIMIZED TOPOLOGICAL SORT WITH MEMOIZATION =====
+void CourseScheduler::displayAllCourses() const {
+    cout << "\n=== All Courses ===" << endl;
+    for (int i = 0; i < courseCount; i++) {
+        cout << "\n" << (i + 1) << ". ";
+        courses[i].display();
+    }
+}
+
 void CourseScheduler::getTopologicalOrderOptimized(int result[], int& resultSize) {
     if (topoSortComputed) {
-        // Return cached result - O(1)
-        for (int i = 0; i < topoSortSize; i++) {
-            result[i] = topoSortResult[i];
-        }
+        for (int i = 0; i < topoSortSize; i++) result[i] = topoSortResult[i];
         resultSize = topoSortSize;
         return;
     }
 
-    // Compute and cache
     bool visited[MAX_COURSES] = { false };
     int stack[MAX_COURSES];
     int stackIndex = 0;
 
     for (int i = 0; i < courseCount; i++) {
-        if (!visited[i]) {
-            topologicalSortUtil(i, visited, stack, stackIndex);
-        }
+        if (!visited[i]) topologicalSortUtil(i, visited, stack, stackIndex);
     }
 
-    // Cache the result
     topoSortSize = stackIndex;
     for (int i = 0; i < stackIndex; i++) {
         topoSortResult[i] = stack[i];

@@ -126,6 +126,7 @@
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Groups.cpp" />
+    <ClCompile Include="main1.cpp" />
     <ClCompile Include="module9.cpp" />
     <ClCompile Include="Relations.cpp" />
     <ClCompile Include="Sets.cpp" />
