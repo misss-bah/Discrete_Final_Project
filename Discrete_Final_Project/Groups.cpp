@@ -200,7 +200,7 @@ int GroupManager::getGroupCount() const {
 }
 
 void generateAllCombinations() {
-    // Total number of subsets = 2^size
+    DynamicArray <int> arr;
     int total = 1;
     for (int i = 0; i < size; i++) {
         total *= 2;

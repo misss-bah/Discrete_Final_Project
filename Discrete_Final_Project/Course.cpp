@@ -1,14 +1,13 @@
 #include "Course.h"
 using namespace std;
 
-// Course implementation
 Course::Course() : credits(0), prereqCount(0) {}
 
-Course::Course( string code,  string name, int cred)
+Course::Course(const string& code, const string& name, int cred)
     : courseCode(code), courseName(name), credits(cred), prereqCount(0) {
 }
 
-void Course::addPrerequisite( string prereq) {
+void Course::addPrerequisite(const string& prereq) {
     if (prereqCount < MAX_PREREQUISITES) {
         prerequisites[prereqCount++] = prereq;
     }
@@ -54,14 +53,14 @@ CourseScheduler::~CourseScheduler() {
     }
 }
 
-void CourseScheduler::addCourse( string code,  string name, int credits) {
+void CourseScheduler::addCourse(const string& code, const string& name, int credits) {
     if (courseCount < MAX_COURSES) {
         courses[courseCount++] = Course(code, name, credits);
         invalidateCache(); // Invalidate cache when structure changes
     }
 }
 
-void CourseScheduler::addPrerequisite( string courseCode,  string prereqCode) {
+void CourseScheduler::addPrerequisite(const string& courseCode, const string& prereqCode) {
     int courseIdx = findCourseIndex(courseCode);
     int prereqIdx = findCourseIndex(prereqCode);
 
@@ -78,7 +77,7 @@ void CourseScheduler::addPrerequisite( string courseCode,  string prereqCode) {
     }
 }
 
-int CourseScheduler::findCourseIndex( string code) const {
+int CourseScheduler::findCourseIndex(const string& code) const {
     for (int i = 0; i < courseCount; i++) {
         if (courses[i].getCode() == code) {
             return i;
@@ -174,7 +173,10 @@ bool CourseScheduler::canTakeCourse(int courseIdx, bool completed[]) const {
     return true;
 }
 
-void CourseScheduler::generateSequencesRecursive(bool completed[], int completedCount, DynamicArray<DynamicArray<string>>& allSequences,DynamicArray<string>& currentSeq, int maxDepth) {
+void CourseScheduler::generateSequencesRecursive(bool completed[], int completedCount,
+    DynamicArray<DynamicArray<string>>& allSequences,
+    DynamicArray<string>& currentSeq,
+    int maxDepth) {
     if (completedCount >= maxDepth || completedCount >= courseCount) {
         allSequences.push(currentSeq);
         return;
