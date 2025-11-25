@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <string>
-#include "Courses.h"
+#include "Course.h"
 #include "Groups.h"
 #include "Induction.h"
 #include "LogicEngine.h"
