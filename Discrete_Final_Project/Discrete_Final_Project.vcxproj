@@ -131,6 +131,7 @@
     <ClCompile Include="efficiency.cpp" />
     <ClCompile Include="benchmark.cpp" />
     <ClCompile Include="consistency.cpp" />
+    <ClCompile Include="mainn.cpp" />
     <ClCompile Include="Relations.cpp" />
     <ClCompile Include="Sets.cpp" />
     <ClCompile Include="WindowsColors.cpp" />
