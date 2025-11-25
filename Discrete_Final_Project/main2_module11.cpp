@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include "WindowsColors.h"
 #include "Course.h"
 #include "Groups.h"
 #include "Induction.h"
@@ -14,26 +15,26 @@
 using namespace std;
 
 void displayMainMenu() {
-    cout << "\n";
-    cout << "======================================================\n";
-    cout << "|        UNIDISC ENGINE - FAST University            |\n";
-    cout << "|    Discrete Mathematics Computational Framework    |\n";
-    cout << "======================================================\n";
+    WindowsColors::clearScreen();
+    WindowsColors::printHeader("UNIDISC ENGINE - FAST University");
+    WindowsColors::printInfo("Discrete Mathematics Computational Framework");
 
     cout << "\n";
-    cout << "1.  Course & Scheduling Module\n";
-    cout << "2.  Student Group Combination Module\n";
-    cout << "3.  Induction & Strong Induction Module\n";
-    cout << "4.  Logic & Inference Engine\n";
-    cout << "5.  Set Operations Module\n";
-    cout << "6.  Relations Module\n";
-    cout << "7.  Functions Module\n";
-    cout << "8.  Automated Proof & Verification\n";
-    cout << "9.  Consistency Checker\n";
-    cout << "10. Algorithmic Efficiency & Benchmarking\n";
-    cout << "11. Run All Demos\n";
-    cout << "12. Exit\n";
-    cout << "\nEnter your choice: ";
+    WindowsColors::printMenuOption(1, "Course & Scheduling Module");
+    WindowsColors::printMenuOption(2, "Student Group Combination Module");
+    WindowsColors::printMenuOption(3, "Induction & Strong Induction Module");
+    WindowsColors::printMenuOption(4, "Logic & Inference Engine");
+    WindowsColors::printMenuOption(5, "Set Operations Module");
+    WindowsColors::printMenuOption(6, "Relations Module");
+    WindowsColors::printMenuOption(7, "Functions Module");
+    WindowsColors::printMenuOption(8, "Automated Proof & Verification");
+    WindowsColors::printMenuOption(9, "Consistency Checker");
+    WindowsColors::printMenuOption(10, "Algorithmic Efficiency & Benchmarking");
+    WindowsColors::printMenuOption(11, "Run All Demos");
+    WindowsColors::printMenuOption(12, "Exit");
+
+    WindowsColors::printMenuSeparator();
+    WindowsColors::printChoicePrompt();
 }
 
 void runCourseModule() {
@@ -41,58 +42,67 @@ void runCourseModule() {
     int choice;
 
     do {
-        cout << "\n=== Course & Scheduling Module ===\n";
-        cout << "1. Add Course\n";
-        cout << "2. Add Prerequisite\n";
-        cout << "3. Validate Prerequisites\n";
-        cout << "4. Display Topological Order\n";
-        cout << "5. Generate Valid Sequences\n";
-        cout << "6. Display All Courses\n";
-        cout << "7. Load Sample Data\n";
-        cout << "0. Back to Main Menu\n";
-        cout << "Choice: ";
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Course & Scheduling Module");
+
+        WindowsColors::printMenuOption(1, "Add Course");
+        WindowsColors::printMenuOption(2, "Add Prerequisite");
+        WindowsColors::printMenuOption(3, "Validate Prerequisites");
+        WindowsColors::printMenuOption(4, "Display Topological Order");
+        WindowsColors::printMenuOption(5, "Generate Valid Sequences");
+        WindowsColors::printMenuOption(6, "Display All Courses");
+        WindowsColors::printMenuOption(7, "Load Sample Data");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
         cin >> choice;
         cin.ignore();
 
         if (choice == 1) {
             string code, name;
             int credits;
-            cout << "Enter course code: ";
+            WindowsColors::printInfo("Enter course code: ");
             getline(cin, code);
-            cout << "Enter course name: ";
+            WindowsColors::printInfo("Enter course name: ");
             getline(cin, name);
-            cout << "Enter credits: ";
+            WindowsColors::printInfo("Enter credits: ");
             cin >> credits;
             cin.ignore();
             scheduler.addCourse(code, name, credits);
-            cout << "Course added successfully!\n";
+            WindowsColors::printSuccess("Course added successfully!");
+            WindowsColors::pause();
         }
         else if (choice == 2) {
             string course, prereq;
-            cout << "Enter course code: ";
+            WindowsColors::printInfo("Enter course code: ");
             getline(cin, course);
-            cout << "Enter prerequisite code: ";
+            WindowsColors::printInfo("Enter prerequisite code: ");
             getline(cin, prereq);
             scheduler.addPrerequisite(course, prereq);
-            cout << "Prerequisite added!\n";
+            WindowsColors::printSuccess("Prerequisite added!");
+            WindowsColors::pause();
         }
         else if (choice == 3) {
             scheduler.validatePrerequisites();
+            WindowsColors::pause();
         }
         else if (choice == 4) {
             scheduler.displayTopologicalOrder();
+            WindowsColors::pause();
         }
         else if (choice == 5) {
             int maxCourses;
-            cout << "Enter maximum courses in sequence: ";
+            WindowsColors::printInfo("Enter maximum courses in sequence: ");
             cin >> maxCourses;
             scheduler.generateAllValidSequences(maxCourses);
+            WindowsColors::pause();
         }
         else if (choice == 6) {
             scheduler.displayAllCourses();
+            WindowsColors::pause();
         }
         else if (choice == 7) {
-            // Load sample data
             scheduler.addCourse("CS101", "Introduction to CS", 3);
             scheduler.addCourse("CS102", "Programming Fundamentals", 3);
             scheduler.addCourse("CS201", "Data Structures", 3);
@@ -104,7 +114,8 @@ void runCourseModule() {
             scheduler.addPrerequisite("CS202", "CS102");
             scheduler.addPrerequisite("CS301", "CS201");
 
-            cout << "Sample data loaded!\n";
+            WindowsColors::printSuccess("Sample data loaded!");
+            WindowsColors::pause();
         }
 
     } while (choice != 0);
@@ -115,68 +126,79 @@ void runGroupModule() {
     int choice;
 
     do {
-        cout << "\n=== Student Group Combination Module ===\n";
-        cout << "1. Add Student\n";
-        cout << "2. Create Project Groups\n";
-        cout << "3. Create Lab Sessions\n";
-        cout << "4. Assign to Electives\n";
-        cout << "5. Display All Students\n";
-        cout << "6. Display All Groups\n";
-        cout << "7. Calculate Combinations\n";
-        cout << "8. Load Sample Students\n";
-        cout << "0. Back to Main Menu\n";
-        cout << "Choice: ";
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Student Group Combination Module");
+
+        WindowsColors::printMenuOption(1, "Add Student");
+        WindowsColors::printMenuOption(2, "Create Project Groups");
+        WindowsColors::printMenuOption(3, "Create Lab Sessions");
+        WindowsColors::printMenuOption(4, "Assign to Electives");
+        WindowsColors::printMenuOption(5, "Display All Students");
+        WindowsColors::printMenuOption(6, "Display All Groups");
+        WindowsColors::printMenuOption(7, "Calculate Combinations");
+        WindowsColors::printMenuOption(8, "Load Sample Students");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
         cin >> choice;
         cin.ignore();
 
         if (choice == 1) {
             string id, name;
             int semester;
-            cout << "Enter student ID: ";
+            WindowsColors::printInfo("Enter student ID: ");
             getline(cin, id);
-            cout << "Enter name: ";
+            WindowsColors::printInfo("Enter name: ");
             getline(cin, name);
-            cout << "Enter semester: ";
+            WindowsColors::printInfo("Enter semester: ");
             cin >> semester;
             manager.addStudent(id, name, semester);
-            cout << "Student added!\n";
+            WindowsColors::printSuccess("Student added!");
+            WindowsColors::pause();
         }
         else if (choice == 2) {
             int groupSize;
-            cout << "Enter group size: ";
+            WindowsColors::printInfo("Enter group size: ");
             cin >> groupSize;
             manager.createProjectGroups(groupSize);
+            WindowsColors::pause();
         }
         else if (choice == 3) {
             int labSize;
-            cout << "Enter students per lab: ";
+            WindowsColors::printInfo("Enter students per lab: ");
             cin >> labSize;
             manager.createLabSessions(labSize);
+            WindowsColors::pause();
         }
         else if (choice == 4) {
             string elective;
             int maxStudents;
             cin.ignore();
-            cout << "Enter elective name: ";
+            WindowsColors::printInfo("Enter elective name: ");
             getline(cin, elective);
-            cout << "Enter max students: ";
+            WindowsColors::printInfo("Enter max students: ");
             cin >> maxStudents;
             manager.assignToElectives(elective, maxStudents);
+            WindowsColors::pause();
         }
         else if (choice == 5) {
             manager.displayAllStudents();
+            WindowsColors::pause();
         }
         else if (choice == 6) {
             manager.displayAllGroups();
+            WindowsColors::pause();
         }
         else if (choice == 7) {
             int total, groupSize;
-            cout << "Enter total students: ";
+            WindowsColors::printInfo("Enter total students: ");
             cin >> total;
-            cout << "Enter group size: ";
+            WindowsColors::printInfo("Enter group size: ");
             cin >> groupSize;
-            cout << "Possible combinations: "
-                << manager.calculatePossibleCombinations(total, groupSize) << endl;
+            long long combs = manager.calculatePossibleCombinations(total, groupSize);
+            WindowsColors::printStatsBox("Possible Combinations (nCr)", to_string(combs));
+            WindowsColors::pause();
         }
         else if (choice == 8) {
             manager.addStudent("24F-3001", "Ali Ahmed", 3);
@@ -188,7 +210,8 @@ void runGroupModule() {
             manager.addStudent("24F-3007", "Bilal Tariq", 3);
             manager.addStudent("24F-3008", "Zainab Riaz", 3);
 
-            cout << "Sample students loaded!\n";
+            WindowsColors::printSuccess("Sample students loaded!");
+            WindowsColors::pause();
         }
 
     } while (choice != 0);
@@ -199,61 +222,68 @@ void runInductionModule() {
     int choice;
 
     do {
-        cout << "\n=== Induction & Strong Induction Module ===\n";
-        cout << "1. Add Course with Prerequisites\n";
-        cout << "2. Verify Can Take Course\n";
-        cout << "3. Verify Indirect Prerequisites\n";
-        cout << "4. Demonstrate Base Case\n";
-        cout << "5. Demonstrate Inductive Step\n";
-        cout << "6. Run Complete Induction Example\n";
-        cout << "7. Display Course Prerequisites\n";
-        cout << "0. Back to Main Menu\n";
-        cout << "Choice: ";
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Induction & Strong Induction Module");
+
+        WindowsColors::printMenuOption(1, "Add Course with Prerequisites");
+        WindowsColors::printMenuOption(2, "Verify Can Take Course");
+        WindowsColors::printMenuOption(3, "Verify Indirect Prerequisites");
+        WindowsColors::printMenuOption(4, "Demonstrate Base Case");
+        WindowsColors::printMenuOption(5, "Demonstrate Inductive Step");
+        WindowsColors::printMenuOption(6, "Run Complete Induction Example");
+        WindowsColors::printMenuOption(7, "Display Course Prerequisites");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
         cin >> choice;
         cin.ignore();
 
         if (choice == 1) {
             string course;
             int prereqCount;
-            cout << "Enter course name: ";
+            WindowsColors::printInfo("Enter course name: ");
             getline(cin, course);
-            cout << "Enter number of prerequisites: ";
+            WindowsColors::printInfo("Enter number of prerequisites: ");
             cin >> prereqCount;
             cin.ignore();
 
             string* prereqs = new string[prereqCount];
             for (int i = 0; i < prereqCount; i++) {
-                cout << "Enter prerequisite " << (i + 1) << ": ";
+                WindowsColors::printInfo("Enter prerequisite " + to_string(i + 1) + ": ");
                 getline(cin, prereqs[i]);
             }
 
             indModule.addCourseWithPrereqs(course, prereqs, prereqCount);
             delete[] prereqs;
-            cout << "Course added with prerequisites!\n";
+            WindowsColors::printSuccess("Course added with prerequisites!");
+            WindowsColors::pause();
         }
         else if (choice == 4) {
             indModule.demonstrateBaseCase();
+            WindowsColors::pause();
         }
         else if (choice == 5) {
             indModule.demonstrateInductiveStep();
+            WindowsColors::pause();
         }
         else if (choice == 6) {
             indModule.runInductionExample();
+            WindowsColors::pause();
         }
         else if (choice == 7) {
             indModule.displayCoursePrerequisites();
+            WindowsColors::pause();
         }
 
     } while (choice != 0);
 }
 
 void runAllDemos() {
-    cout << "\n====================================================\n";
-    cout << "|         RUNNING ALL MODULE DEMONSTRATIONS        |\n";
-    cout << "====================================================\n";
+    WindowsColors::clearScreen();
+    WindowsColors::printHeader("RUNNING ALL MODULE DEMONSTRATIONS");
 
-    // Course Demo
-    cout << "\n\n>>> DEMO 1: COURSE & SCHEDULING <<<\n";
+    WindowsColors::printSubHeader("Demo 1: Course & Scheduling");
     CourseScheduler scheduler;
     scheduler.addCourse("CS101", "Intro to CS", 3);
     scheduler.addCourse("CS201", "Data Structures", 3);
@@ -263,8 +293,7 @@ void runAllDemos() {
     scheduler.validatePrerequisites();
     scheduler.displayTopologicalOrder();
 
-    // Groups Demo
-    cout << "\n\n>>> DEMO 2: STUDENT GROUPS <<<\n";
+    WindowsColors::printSubHeader("Demo 2: Student Groups");
     GroupManager gManager;
     gManager.addStudent("21K-0001", "Ali", 3);
     gManager.addStudent("21K-0002", "Sara", 3);
@@ -273,186 +302,455 @@ void runAllDemos() {
     gManager.createProjectGroups(2);
     gManager.displayAllGroups();
 
-    // Induction Demo
-    cout << "\n\n>>> DEMO 3: INDUCTION <<<\n";
+    WindowsColors::printSubHeader("Demo 3: Induction");
     InductionModule indMod;
     indMod.runInductionExample();
 
-    cout << "\n\n>>> ALL DEMOS COMPLETED <<<\n";
-    cout << "Press Enter to continue...";
-    cin.ignore();
-    cin.get();
+    WindowsColors::printSuccess("All demos completed successfully!");
+    WindowsColors::pause();
 }
+
 void runBenchmarkModule() {
     Benchmark bench;
     int choice;
     do {
-        cout << "\n=== Algorithmic Efficiency & Benchmarking ===\n";
-        cout << "1. Sets\n2. Scheduling\n3. Relations\n4. Induction\n5. Logic\n6. Run All Benchmarks\n0. Back\nChoice: ";
-        cin >> choice; cin.ignore();
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Algorithmic Efficiency & Benchmarking");
 
-        if (choice == 1) bench.benchmarkSets();
-        else if (choice == 2) bench.benchmarkScheduling();
-        else if (choice == 3) bench.benchmarkRelations();
-        else if (choice == 4) bench.benchmarkInduction();
-        else if (choice == 5) bench.benchmarkLogic();
-        else if (choice == 6)
-        {
+        WindowsColors::printMenuOption(1, "Benchmark Sets");
+        WindowsColors::printMenuOption(2, "Benchmark Scheduling");
+        WindowsColors::printMenuOption(3, "Benchmark Relations");
+        WindowsColors::printMenuOption(4, "Benchmark Induction");
+        WindowsColors::printMenuOption(5, "Benchmark Logic");
+        WindowsColors::printMenuOption(6, "Run All Benchmarks");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            bench.benchmarkSets();
+            WindowsColors::pause();
+        }
+        else if (choice == 2) {
+            bench.benchmarkScheduling();
+            WindowsColors::pause();
+        }
+        else if (choice == 3) {
+            bench.benchmarkRelations();
+            WindowsColors::pause();
+        }
+        else if (choice == 4) {
+            bench.benchmarkInduction();
+            WindowsColors::pause();
+        }
+        else if (choice == 5) {
+            bench.benchmarkLogic();
+            WindowsColors::pause();
+        }
+        else if (choice == 6) {
+            WindowsColors::printSection("Running All Benchmarks");
             bench.benchmarkSets();
             bench.benchmarkScheduling();
             bench.benchmarkRelations();
             bench.benchmarkInduction();
             bench.benchmarkLogic();
-
+            WindowsColors::printSuccess("All benchmarks completed!");
+            WindowsColors::pause();
         }
     } while (choice != 0);
 }
+
 void runConsistencyModule() {
     ConsistencyModule cmod;
     int choice;
     do {
-        cout << "\n=== Consistency Checker ===\n";
-        cout << "1. Room Conflict Demo\n2. Faculty Conflict Demo\n3. Prerequisite Check Demo\n4. Overload Check Demo\n0. Back\nChoice: ";
-        cin >> choice; cin.ignore();
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Consistency Checker");
 
-        if (choice == 1) cmod.runRoomCheckDemo();
-        else if (choice == 2) cmod.runFacultyCheckDemo();
-        else if (choice == 3) cmod.runPrereqCheckDemo();
-        else if (choice == 4) cmod.runOverloadCheckDemo();
+        WindowsColors::printMenuOption(1, "Room Conflict Detection");
+        WindowsColors::printMenuOption(2, "Faculty Conflict Detection");
+        WindowsColors::printMenuOption(3, "Prerequisite Check");
+        WindowsColors::printMenuOption(4, "Overload Check");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            cmod.runRoomCheckDemo();
+            WindowsColors::pause();
+        }
+        else if (choice == 2) {
+            cmod.runFacultyCheckDemo();
+            WindowsColors::pause();
+        }
+        else if (choice == 3) {
+            cmod.runPrereqCheckDemo();
+            WindowsColors::pause();
+        }
+        else if (choice == 4) {
+            cmod.runOverloadCheckDemo();
+            WindowsColors::pause();
+        }
     } while (choice != 0);
 }
+
 void runProofModule() {
     ProofModule pmod;
     int choice;
     do {
-        cout << "\n=== Automated Proof Module ===\n";
-        cout << "1. Run Induction Demo\n2. Run Logic Proof Demo\n3. Run Prerequisite Proof Demo\n";
-        cout << "0. Back\nChoice: "; cin >> choice; cin.ignore();
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Automated Proof & Verification");
 
-        if (choice == 1) pmod.runInductionDemo();
-        else if (choice == 2) pmod.runLogicDemo();
-        else if (choice == 3) pmod.runPrerequisiteDemo();
+        WindowsColors::printMenuOption(1, "Induction Proof Demo");
+        WindowsColors::printMenuOption(2, "Logic Proof Demo");
+        WindowsColors::printMenuOption(3, "Prerequisite Proof Demo");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            pmod.runInductionDemo();
+            WindowsColors::pause();
+        }
+        else if (choice == 2) {
+            pmod.runLogicDemo();
+            WindowsColors::pause();
+        }
+        else if (choice == 3) {
+            pmod.runPrerequisiteDemo();
+            WindowsColors::pause();
+        }
     } while (choice != 0);
 }
+
 void runFunctionsModule() {
     FunctionModule fmod;
     int choice;
     do {
-        cout << "\n=== Functions Module ===\n";
-        cout << "1. Assign Student to Course\n2. Assign Course to Faculty\n3. Assign Faculty to Room\n";
-        cout << "4. Verify Injectivity\n5. Verify Surjectivity\n6. Test Composition\n7. Test Inverse\n8. Display All Functions\n0. Back\n";
-        cout << "Choice: "; cin >> choice; cin.ignore();
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Functions Module");
 
-        if (choice == 1) { string s, c; cout << "Student: "; getline(cin, s); cout << "Course: "; getline(cin, c); fmod.assignStudentToCourse(s, c); }
-        else if (choice == 2) { string c, f; cout << "Course: "; getline(cin, c); cout << "Faculty: "; getline(cin, f); fmod.assignCourseToFaculty(c, f); }
-        else if (choice == 3) { string f, r; cout << "Faculty: "; getline(cin, f); cout << "Room: "; getline(cin, r); fmod.assignFacultyToRoom(f, r); }
-        else if (choice == 4) { string name; cout << "Function name: "; getline(cin, name); fmod.verifyInjectivity(name); }
-        else if (choice == 5) { string name; cout << "Function name: "; getline(cin, name); fmod.verifySurjectivity(name); }
-        else if (choice == 6) fmod.testFunctionComposition();
-        else if (choice == 7) fmod.testInverseFunction();
-        else if (choice == 8) fmod.displayAllFunctions();
+        WindowsColors::printMenuOption(1, "Assign Student to Course");
+        WindowsColors::printMenuOption(2, "Assign Course to Faculty");
+        WindowsColors::printMenuOption(3, "Assign Faculty to Room");
+        WindowsColors::printMenuOption(4, "Verify Injectivity");
+        WindowsColors::printMenuOption(5, "Verify Surjectivity");
+        WindowsColors::printMenuOption(6, "Test Function Composition");
+        WindowsColors::printMenuOption(7, "Test Function Inverse");
+        WindowsColors::printMenuOption(8, "Display All Functions");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            string s, c;
+            WindowsColors::printInfo("Enter student: ");
+            getline(cin, s);
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, c);
+            fmod.assignStudentToCourse(s, c);
+            WindowsColors::printSuccess("Mapping added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 2) {
+            string c, f;
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, c);
+            WindowsColors::printInfo("Enter faculty: ");
+            getline(cin, f);
+            fmod.assignCourseToFaculty(c, f);
+            WindowsColors::printSuccess("Mapping added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 3) {
+            string f, r;
+            WindowsColors::printInfo("Enter faculty: ");
+            getline(cin, f);
+            WindowsColors::printInfo("Enter room: ");
+            getline(cin, r);
+            fmod.assignFacultyToRoom(f, r);
+            WindowsColors::printSuccess("Mapping added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 4) {
+            string name;
+            WindowsColors::printInfo("Function name: ");
+            getline(cin, name);
+            fmod.verifyInjectivity(name);
+            WindowsColors::pause();
+        }
+        else if (choice == 5) {
+            string name;
+            WindowsColors::printInfo("Function name: ");
+            getline(cin, name);
+            fmod.verifySurjectivity(name);
+            WindowsColors::pause();
+        }
+        else if (choice == 6) {
+            fmod.testFunctionComposition();
+            WindowsColors::pause();
+        }
+        else if (choice == 7) {
+            fmod.testInverseFunction();
+            WindowsColors::pause();
+        }
+        else if (choice == 8) {
+            fmod.displayAllFunctions();
+            WindowsColors::pause();
+        }
     } while (choice != 0);
 }
+
 void runRelationsModule() {
     RelationModule rel;
     int choice;
     do {
-        cout << "\n=== Relations Module ===\n";
-        cout << "1. Add Student-Course\n2. Add Faculty-Course\n3. Add Course-Room\n";
-        cout << "4. Check Relation Properties\n5. Find Indirect Enrollments\n";
-        cout << "6. Compose Relations\n7. Display All Relations\n0. Back to Main Menu\n";
-        cout << "Choice: "; cin >> choice; cin.ignore();
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Relations Module");
 
-        if (choice == 1) { string s, c; cout << "Student: "; getline(cin, s); cout << "Course: "; getline(cin, c); rel.addStudentCourse(s, c); }
-        else if (choice == 2) { string f, c; cout << "Faculty: "; getline(cin, f); cout << "Course: "; getline(cin, c); rel.addFacultyCourse(f, c); }
-        else if (choice == 3) { string c, r; cout << "Course: "; getline(cin, c); cout << "Room: "; getline(cin, r); rel.addCourseRoom(c, r); }
-        else if (choice == 4) rel.checkRelationProperties();
-        else if (choice == 5) rel.findIndirectEnrollments();
-        else if (choice == 6) rel.composeRelations();
-        else if (choice == 7) rel.displayAllRelations();
+        WindowsColors::printMenuOption(1, "Add Student-Course");
+        WindowsColors::printMenuOption(2, "Add Faculty-Course");
+        WindowsColors::printMenuOption(3, "Add Course-Room");
+        WindowsColors::printMenuOption(4, "Check Relation Properties");
+        WindowsColors::printMenuOption(5, "Find Indirect Enrollments");
+        WindowsColors::printMenuOption(6, "Compose Relations");
+        WindowsColors::printMenuOption(7, "Display All Relations");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            string s, c;
+            WindowsColors::printInfo("Enter student: ");
+            getline(cin, s);
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, c);
+            rel.addStudentCourse(s, c);
+            WindowsColors::printSuccess("Pair added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 2) {
+            string f, c;
+            WindowsColors::printInfo("Enter faculty: ");
+            getline(cin, f);
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, c);
+            rel.addFacultyCourse(f, c);
+            WindowsColors::printSuccess("Pair added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 3) {
+            string c, r;
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, c);
+            WindowsColors::printInfo("Enter room: ");
+            getline(cin, r);
+            rel.addCourseRoom(c, r);
+            WindowsColors::printSuccess("Pair added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 4) {
+            rel.checkRelationProperties();
+            WindowsColors::pause();
+        }
+        else if (choice == 5) {
+            rel.findIndirectEnrollments();
+            WindowsColors::pause();
+        }
+        else if (choice == 6) {
+            rel.composeRelations();
+            WindowsColors::pause();
+        }
+        else if (choice == 7) {
+            rel.displayAllRelations();
+            WindowsColors::pause();
+        }
     } while (choice != 0);
 }
+
 void runSetModule() {
     SetModule sets;
     int choice;
     do {
-        cout << "\n=== Set Operations Module ===\n";
-        cout << "1. Add Student\n2. Add Course\n3. Add Faculty\n4. Add Room\n";
-        cout << "5. Demonstrate Set Operations\n6. Generate Power Set\n";
-        cout << "7. Display All Sets\n0. Back to Main Menu\n";
-        cout << "Choice: "; cin >> choice; cin.ignore();
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Set Operations Module");
 
-        if (choice == 1) { string s; cout << "Student name: "; getline(cin, s); sets.addStudent(s); }
-        else if (choice == 2) { string s; cout << "Course name: "; getline(cin, s); sets.addCourse(s); }
-        else if (choice == 3) { string s; cout << "Faculty name: "; getline(cin, s); sets.addFaculty(s); }
-        else if (choice == 4) { string s; cout << "Room name: "; getline(cin, s); sets.addRoom(s); }
-        else if (choice == 5) sets.demonstrateSetOperations();
-        else if (choice == 6) { string type; cout << "Set type (student/course/faculty/room): "; getline(cin, type); sets.generatePowerSet(type); }
-        else if (choice == 7) sets.displayAllSets();
+        WindowsColors::printMenuOption(1, "Add Student");
+        WindowsColors::printMenuOption(2, "Add Course");
+        WindowsColors::printMenuOption(3, "Add Faculty");
+        WindowsColors::printMenuOption(4, "Add Room");
+        WindowsColors::printMenuOption(5, "Demonstrate Set Operations");
+        WindowsColors::printMenuOption(6, "Generate Power Set");
+        WindowsColors::printMenuOption(7, "Display All Sets");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            string s;
+            WindowsColors::printInfo("Enter student name: ");
+            getline(cin, s);
+            sets.addStudent(s);
+            WindowsColors::printSuccess("Student added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 2) {
+            string s;
+            WindowsColors::printInfo("Enter course name: ");
+            getline(cin, s);
+            sets.addCourse(s);
+            WindowsColors::printSuccess("Course added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 3) {
+            string s;
+            WindowsColors::printInfo("Enter faculty name: ");
+            getline(cin, s);
+            sets.addFaculty(s);
+            WindowsColors::printSuccess("Faculty added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 4) {
+            string s;
+            WindowsColors::printInfo("Enter room name: ");
+            getline(cin, s);
+            sets.addRoom(s);
+            WindowsColors::printSuccess("Room added!");
+            WindowsColors::pause();
+        }
+        else if (choice == 5) {
+            sets.demonstrateSetOperations();
+            WindowsColors::pause();
+        }
+        else if (choice == 6) {
+            string type;
+            WindowsColors::printInfo("Enter set type (student/course/faculty/room): ");
+            getline(cin, type);
+            sets.generatePowerSet(type);
+            WindowsColors::pause();
+        }
+        else if (choice == 7) {
+            sets.displayAllSets();
+            WindowsColors::pause();
+        }
     } while (choice != 0);
 }
+
 void runLogicModule() {
     LogicModule logic;
     int choice;
     do {
-        cout << "\n=== Logic & Inference Engine ===\n";
-        cout << "1. Add Assignment (Course, Faculty, Room)\n";
-        cout << "2. Verify Faculty Assignment\n";
-        cout << "3. Detect Conflicts\n";
-        cout << "4. Check Room Allocation\n";
-        cout << "5. Demonstrate Tautology\n";
-        cout << "6. Demonstrate Contradiction\n";
-        cout << "7. Demonstrate Logical Equivalence\n";
-        cout << "8. Display All Assignments\n";
-        cout << "0. Back to Main Menu\n";
-        cout << "Choice: ";
+        WindowsColors::clearScreen();
+        WindowsColors::printHeader("Logic & Inference Engine");
+
+        WindowsColors::printMenuOption(1, "Add Assignment (Course, Faculty, Room)");
+        WindowsColors::printMenuOption(2, "Verify Faculty Assignment");
+        WindowsColors::printMenuOption(3, "Detect Conflicts");
+        WindowsColors::printMenuOption(4, "Check Room Allocation");
+        WindowsColors::printMenuOption(5, "Demonstrate Tautology");
+        WindowsColors::printMenuOption(6, "Demonstrate Contradiction");
+        WindowsColors::printMenuOption(7, "Demonstrate Logical Equivalence");
+        WindowsColors::printMenuOption(8, "Display All Assignments");
+        WindowsColors::printMenuOption(0, "Back to Main Menu");
+
+        WindowsColors::printMenuSeparator();
+        WindowsColors::printChoicePrompt();
         cin >> choice;
         cin.ignore();
 
         if (choice == 1) {
             string course, faculty, room;
-            cout << "Enter course: "; getline(cin, course);
-            cout << "Enter faculty: "; getline(cin, faculty);
-            cout << "Enter room: "; getline(cin, room);
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, course);
+            WindowsColors::printInfo("Enter faculty: ");
+            getline(cin, faculty);
+            WindowsColors::printInfo("Enter room: ");
+            getline(cin, room);
             logic.addAssignment(course, faculty, room);
+            WindowsColors::printSuccess("Assignment added successfully!");
+            WindowsColors::pause();
         }
         else if (choice == 2) {
             string faculty, course, expectedLab;
-            cout << "Enter faculty: "; getline(cin, faculty);
-            cout << "Enter course: "; getline(cin, course);
-            cout << "Enter expected lab/room: "; getline(cin, expectedLab);
+            WindowsColors::printInfo("Enter faculty: ");
+            getline(cin, faculty);
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, course);
+            WindowsColors::printInfo("Enter expected lab/room: ");
+            getline(cin, expectedLab);
             bool valid = logic.verifyFacultyAssignment(faculty, course, expectedLab);
-            cout << (valid ? "Assignment OK\n" : "Assignment Conflict Detected!\n");
+            if (valid) WindowsColors::printSuccess("Assignment verified!");
+            else WindowsColors::printError("Assignment conflict detected!");
+            WindowsColors::pause();
         }
         else if (choice == 3) {
             bool conflicts = logic.detectConflicts();
-            cout << (conflicts ? "Conflicts detected!\n" : "No conflicts.\n");
+            if (conflicts) WindowsColors::printWarning("Conflicts detected!");
+            else WindowsColors::printSuccess("No conflicts found!");
+            WindowsColors::pause();
         }
         else if (choice == 4) {
             string course;
-            cout << "Enter course: "; getline(cin, course);
+            WindowsColors::printInfo("Enter course: ");
+            getline(cin, course);
             bool ok = logic.checkRoomAllocation(course);
-            cout << (ok ? "Room allocation OK\n" : "Room conflict detected!\n");
+            if (ok) WindowsColors::printSuccess("Room allocation OK!");
+            else WindowsColors::printError("Room conflict detected!");
+            WindowsColors::pause();
         }
-        else if (choice == 5) logic.demonstrateTautology();
-        else if (choice == 6) logic.demonstrateContradiction();
-        else if (choice == 7) logic.demonstrateLogicalEquivalence();
-        else if (choice == 8) logic.displayAllAssignments();
-
+        else if (choice == 5) {
+            logic.demonstrateTautology();
+            WindowsColors::pause();
+        }
+        else if (choice == 6) {
+            logic.demonstrateContradiction();
+            WindowsColors::pause();
+        }
+        else if (choice == 7) {
+            logic.demonstrateLogicalEquivalence();
+            WindowsColors::pause();
+        }
+        else if (choice == 8) {
+            logic.displayAllAssignments();
+            WindowsColors::pause();
+        }
     } while (choice != 0);
 }
-
 
 int main() {
     int choice;
 
-    cout << "======================================================\n";
-    cout << "=                  UNIDISC ENGINE                    =\n";
-    cout << "=           FAST University Academic System          =\n";
-    cout << "=   Discrete Mathematics Computational Framework     =\n";
-    cout << "======================================================\n";
-    cout << "\nInitializing system...\n";
-    cout << "System ready!\n";
+    WindowsColors::initConsole();
+    WindowsColors::clearScreen();
+    WindowsColors::printHeader("UNIDISC ENGINE");
+    WindowsColors::printInfo("FAST University Academic System");
+    WindowsColors::printInfo("Discrete Mathematics Computational Framework");
+
+    cout << "\n";
+    WindowsColors::printSuccess("System initialized successfully!");
+    WindowsColors::printInfo("Loading modules...");
+
+
+    WindowsColors::printSuccess("All modules loaded!");
+    WindowsColors::pause();
 
     do {
         displayMainMenu();
@@ -469,23 +767,41 @@ int main() {
         case 3:
             runInductionModule();
             break;
-        case 4: runLogicModule(); break;
-        case 5: runSetModule(); break;
-        case 6: runRelationsModule(); break;
-        case 7: runFunctionsModule(); break;
-        case 8: runProofModule(); break;
-        case 9: runConsistencyModule(); break;
-        case 10: runBenchmarkModule(); break;
-
+        case 4:
+            runLogicModule();
+            break;
+        case 5:
+            runSetModule();
+            break;
+        case 6:
+            runRelationsModule();
+            break;
+        case 7:
+            runFunctionsModule();
+            break;
+        case 8:
+            runProofModule();
+            break;
+        case 9:
+            runConsistencyModule();
+            break;
+        case 10:
+            runBenchmarkModule();
+            break;
         case 11:
             runAllDemos();
             break;
         case 12:
-            cout << "\nThank you for using UNIDISC ENGINE!\n";
-            cout << "Developed for FAST University Discrete Mathematics Project\n";
+            WindowsColors::clearScreen();
+            WindowsColors::printHeader("GOODBYE!");
+            WindowsColors::printSuccess("Thank you for using UNIDISC ENGINE!");
+            WindowsColors::printInfo("Developed for FAST University");
+            WindowsColors::printInfo("Discrete Mathematics Project");
+            cout << "\n";
             break;
         default:
-            cout << "\nInvalid choice! Please try again.\n";
+            WindowsColors::printError("Invalid choice! Please try again.");
+            WindowsColors::pause();
         }
 
     } while (choice != 12);
