@@ -1,73 +1,73 @@
-﻿#ifndef functions_h
-#define functions_h
+﻿#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-const int max_mappings = 100;
+const int MAX_MAPPINGS = 100;
 
-template<typename domain, typename codomain>
-class function {
+template<typename Domain, typename Codomain>
+class Function {
 private:
-    struct mapping {
-        domain input;
-        codomain output;
+    struct Mapping {
+        Domain input;
+        Codomain output;
     };
 
-    mapping mappings[max_mappings];
-    int mappingcount;
+    Mapping mappings[MAX_MAPPINGS];
+    int mappingCount;
 
-    bool hasdomainelement(const domain& input) const;
+    bool hasDomainElement(const Domain& input) const;
 
 public:
-    function();
+    Function();
 
-    bool addmapping(const domain& input, const codomain& output);
-    codomain apply(const domain& input) const;
+    bool addMapping(const Domain& input, const Codomain& output);
+    Codomain apply(const Domain& input) const;
 
-    bool isinjective() const;
-    bool issurjective(const codomain codomain[], int codomainsize) const;
-    bool isbijective(const codomain codomain[], int codomainsize) const;
+    bool isInjective() const;
+    bool isSurjective(const Codomain codomain[], int codomainSize) const;
+    bool isBijective(const Codomain codomain[], int codomainSize) const;
 
-    function<domain, codomain> compose(const function<codomain, domain>& other) const;
-    function<codomain, domain> inverse() const;
+    Function<Domain, Codomain> compose(const Function<Codomain, Domain>& other) const;
+    Function<Codomain, Domain> inverse() const;
 
     void display() const;
-    int getsize() const {
-        return mappingcount;
+    int getSize() const {
+        return mappingCount;
     }
 };
 
-class functionmodule {
+class FunctionModule {
 private:
-    function<string, string> studenttocourse;
-    function<string, string> coursetofaculty;
-    function<string, string> facultytoroom;
+    Function<string, string> studentToCourse;
+    Function<string, string> courseToFaculty;
+    Function<string, string> facultyToRoom;
 
 public:
-    functionmodule();
+    FunctionModule();
 
-    void assignstudenttocourse(const string& student, const string& course);
-    void assigncoursetofaculty(const string& course, const string& faculty);
-    void assignfacultytoroom(const string& faculty, const string& room);
+    void assignStudentToCourse(const string& student, const string& course);
+    void assignCourseToFaculty(const string& course, const string& faculty);
+    void assignFacultyToRoom(const string& faculty, const string& room);
 
-    void verifyinjectivity(const string& functionname);
-    void verifysurjectivity(const string& functionname);
-    void testfunctioncomposition();
-    void testinversefunction();
+    void verifyInjectivity(const string& functionName);
+    void verifySurjectivity(const string& functionName);
+    void testFunctionComposition();
+    void testInverseFunction();
 
-    void displayallfunctions() const;
+    void displayAllFunctions() const;
 };
 
 
-template<typename domain, typename codomain>
-function<domain, codomain>::function() : mappingcount(0) {}
+template<typename Domain, typename Codomain>
+Function<Domain, Codomain>::Function() : mappingCount(0) {}
 
-template<typename domain, typename codomain>
-bool function<domain, codomain>::hasdomainelement(const domain& input) const {
-    for (int i = 0; i < mappingcount; i++)
+template<typename Domain, typename Codomain>
+bool Function<Domain, Codomain>::hasDomainElement(const Domain& input) const {
+    for (int i = 0; i < mappingCount; i++)
     {
         if (mappings[i].input == input) {
             return true;
@@ -76,38 +76,38 @@ bool function<domain, codomain>::hasdomainelement(const domain& input) const {
     return false;
 }
 
-template<typename domain, typename codomain>
-bool function<domain, codomain>::addmapping(const domain& input, const codomain& output) {
-    if (hasdomainelement(input))
+template<typename Domain, typename Codomain>
+bool Function<Domain, Codomain>::addMapping(const Domain& input, const Codomain& output) {
+    if (hasDomainElement(input))
     {
-        return false; // functions must be well-defined
+        return false; // Functions must be well-defined
     }
-    if (mappingcount < max_mappings)
+    if (mappingCount < MAX_MAPPINGS)
     {
-        mappings[mappingcount].input = input;
-        mappings[mappingcount].output = output;
-        mappingcount++;
+        mappings[mappingCount].input = input;
+        mappings[mappingCount].output = output;
+        mappingCount++;
         return true;
     }
     return false;
 }
 
-template<typename domain, typename codomain>
-codomain function<domain, codomain>::apply(const domain& input) const {
-    for (int i = 0; i < mappingcount; i++)
+template<typename Domain, typename Codomain>
+Codomain Function<Domain, Codomain>::apply(const Domain& input) const {
+    for (int i = 0; i < mappingCount; i++)
     {
         if (mappings[i].input == input) {
             return mappings[i].output;
         }
     }
-    return codomain();
+    return Codomain();
 }
 
-template<typename domain, typename codomain>
-bool function<domain, codomain>::isinjective() const {
-    for (int i = 0; i < mappingcount; i++)
+template<typename Domain, typename Codomain>
+bool Function<Domain, Codomain>::isInjective() const {
+    for (int i = 0; i < mappingCount; i++)
     {
-        for (int j = i + 1; j < mappingcount; j++)
+        for (int j = i + 1; j < mappingCount; j++)
         {
             if (mappings[i].output == mappings[j].output) {
                 return false;
@@ -117,12 +117,12 @@ bool function<domain, codomain>::isinjective() const {
     return true;
 }
 
-template<typename domain, typename codomain>
-bool function<domain, codomain>::issurjective(const codomain codomain[], int codomainsize) const {
-    for (int i = 0; i < codomainsize; i++)
+template<typename Domain, typename Codomain>
+bool Function<Domain, Codomain>::isSurjective(const Codomain codomain[], int codomainSize) const {
+    for (int i = 0; i < codomainSize; i++)
     {
         bool found = false;
-        for (int j = 0; j < mappingcount; j++)
+        for (int j = 0; j < mappingCount; j++)
         {
             if (mappings[j].output == codomain[i]) {
                 found = true;
@@ -135,22 +135,46 @@ bool function<domain, codomain>::issurjective(const codomain codomain[], int cod
     return true;
 }
 
-template<typename domain, typename codomain>
-bool function<domain, codomain>::isbijective(const codomain codomain[], int codomainsize) const
+template<typename Domain, typename Codomain>
+bool Function<Domain, Codomain>::isBijective(const Codomain codomain[], int codomainSize) const
 {
-    return isinjective() && issurjective(codomain, codomainsize);
+    return isInjective() && isSurjective(codomain, codomainSize);
 }
 
-template<typename domain, typename codomain>
-void function<domain, codomain>::display() const {
+template<typename Domain, typename Codomain>
+void Function<Domain, Codomain>::display() const {
     cout << "{ ";
-    for (int i = 0; i < mappingcount; i++)
+    for (int i = 0; i < mappingCount; i++)
     {
         cout << mappings[i].input << " → " << mappings[i].output;
-        if (i < mappingcount - 1)
+        if (i < mappingCount - 1)
             cout << ", ";
     }
     cout << " }";
+}
+
+template<typename Domain, typename Codomain>
+Function<Domain, Codomain> Function<Domain, Codomain>::compose(const Function<Codomain, Domain>& other) const {
+    Function<Domain, Codomain> result;
+    for (int i = 0; i < mappingCount; i++) {
+        for (int j = 0; j < other.mappingCount; j++) {
+            if (mappings[i].output == other.mappings[j].input) {
+                result.addMapping(mappings[i].input, other.mappings[j].output);
+            }
+        }
+    }
+    return result;
+}
+
+template<typename Domain, typename Codomain>
+Function<Codomain, Domain> Function<Domain, Codomain>::inverse() const {
+    Function<Codomain, Domain> result;
+    if (isInjective()) {
+        for (int i = 0; i < mappingCount; i++) {
+            result.addMapping(mappings[i].output, mappings[i].input);
+        }
+    }
+    return result;
 }
 
 #endif
