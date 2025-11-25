@@ -131,7 +131,6 @@
     <ClCompile Include="main1.cpp" />
     <ClCompile Include="main2_module11.cpp" />
     <ClCompile Include="efficiency.cpp" />
-    <ClCompile Include="module11.cpp" />
     <ClCompile Include="benchmark.cpp" />
     <ClCompile Include="consistency.cpp" />
     <ClCompile Include="Relations.cpp" />
