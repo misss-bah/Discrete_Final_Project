@@ -133,6 +133,7 @@
     <ClCompile Include="consistency.cpp" />
     <ClCompile Include="Relations.cpp" />
     <ClCompile Include="Sets.cpp" />
+    <ClCompile Include="WindowsColors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Course.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="consistency.h" />
     <ClInclude Include="Relations.h" />
     <ClInclude Include="Sets.h" />
+    <ClInclude Include="WindowsColors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
