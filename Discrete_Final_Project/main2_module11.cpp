@@ -283,119 +283,28 @@ void runAllDemos() {
     cin.ignore();
     cin.get();
 }
-// Replace your runBenchmarkModule() function with this:
-
 void runBenchmarkModule() {
     Benchmark bench;
     int choice;
     do {
-        cout << "\n--- PERFORMANCE BENCHMARKING ---\n";
-        cout << "1. Benchmark Sets\n";
-        cout << "2. Benchmark Scheduling\n";
-        cout << "3. Benchmark Relations\n";
-        cout << "4. Benchmark Induction\n";
-        cout << "5. Benchmark Logic\n";
-        cout << "6. Benchmark Functions\n";
-        cout << "7. Run All Benchmarks\n";
+        cout << "\n=== Algorithmic Efficiency & Benchmarking ===\n";
+        cout << "1. Sets\n2. Scheduling\n3. Relations\n4. Induction\n5. Logic\n6. Run All Benchmarks\n0. Back\nChoice: ";
+        cin >> choice; cin.ignore();
 
-        cout << "\n--- UNIT TESTING (Correctness) ---\n";
-        cout << "8. Test Sets Correctness\n";
-        cout << "9. Test Scheduling Correctness\n";
-        cout << "10. Test Relations Correctness\n";
-        cout << "11. Test Induction Correctness\n";
-        cout << "12. Test Logic Correctness\n";
-        cout << "13. Test Functions Correctness\n";
-        cout << "14. Test Consistency Correctness\n";
-        cout << "15. Run All Unit Tests\n";
+        if (choice == 1) bench.benchmarkSets();
+        else if (choice == 2) bench.benchmarkScheduling();
+        else if (choice == 3) bench.benchmarkRelations();
+        else if (choice == 4) bench.benchmarkInduction();
+        else if (choice == 5) bench.benchmarkLogic();
+        else if (choice == 6)
+        {
+            bench.benchmarkSets();
+            bench.benchmarkScheduling();
+            bench.benchmarkRelations();
+            bench.benchmarkInduction();
+            bench.benchmarkLogic();
 
-        cout << "\n--- COMPREHENSIVE TESTING ---\n";
-        cout << "16. Generate Full Test Report\n";
-        cout << "17. Stress Test Large Datasets\n";
-
-        cout << "\n0. Back to Main Menu\n";
-        cout << "\nChoice: ";
-
-        cin >> choice;
-        cin.ignore();
-
-        switch (choice) {
-            // Benchmarks
-        case 1: bench.benchmarkSets(); break;
-        case 2: bench.benchmarkScheduling(); break;
-        case 3: bench.benchmarkRelations(); break;
-        case 4: bench.benchmarkInduction(); break;
-        case 5: bench.benchmarkLogic(); break;
-        case 6: bench.benchmarkFunctions(); break;
-        case 7: bench.benchmarkAll(); break;
-
-            // Unit Tests
-        case 8:
-            if (bench.testSetsCorrectness())
-                cout << "\n✓ Sets module PASSED all tests\n";
-            else
-                cout << "\n✗ Sets module FAILED some tests\n";
-            break;
-        case 9:
-            if (bench.testSchedulingCorrectness())
-                cout << "\n✓ Scheduling module PASSED all tests\n";
-            else
-                cout << "\n✗ Scheduling module FAILED some tests\n";
-            break;
-        case 10:
-            if (bench.testRelationsCorrectness())
-                cout << "\n✓ Relations module PASSED all tests\n";
-            else
-                cout << "\n✗ Relations module FAILED some tests\n";
-            break;
-        case 11:
-            if (bench.testInductionCorrectness())
-                cout << "\n✓ Induction module PASSED all tests\n";
-            else
-                cout << "\n✗ Induction module FAILED some tests\n";
-            break;
-        case 12:
-            if (bench.testLogicCorrectness())
-                cout << "\n✓ Logic module PASSED all tests\n";
-            else
-                cout << "\n✗ Logic module FAILED some tests\n";
-            break;
-        case 13:
-            if (bench.testFunctionsCorrectness())
-                cout << "\n✓ Functions module PASSED all tests\n";
-            else
-                cout << "\n✗ Functions module FAILED some tests\n";
-            break;
-        case 14:
-            if (bench.testConsistencyCorrectness())
-                cout << "\n✓ Consistency module PASSED all tests\n";
-            else
-                cout << "\n✗ Consistency module FAILED some tests\n";
-            break;
-        case 15:
-            bench.runAllTests();
-            break;
-
-            // Comprehensive
-        case 16:
-            bench.generateTestReport();
-            break;
-        case 17:
-            bench.stressTestLargeDataset();
-            break;
-
-        case 0:
-            cout << "\nReturning to main menu...\n";
-            break;
-
-        default:
-            cout << "\nInvalid choice! Try again.\n";
         }
-
-        if (choice != 0) {
-            cout << "\nPress Enter to continue...";
-            cin.get();
-        }
-
     } while (choice != 0);
 }
 void runConsistencyModule() {
