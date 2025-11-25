@@ -126,6 +126,8 @@
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Groups.cpp" />
+    <ClCompile Include="Induction.cpp" />
+    <ClCompile Include="LogicEngine.cpp" />
     <ClCompile Include="main1.cpp" />
     <ClCompile Include="main2_module11.cpp" />
     <ClCompile Include="efficiency.cpp" />
@@ -140,6 +142,8 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Groups.h" />
     <ClInclude Include="efficiency.h" />
+    <ClInclude Include="Induction.h" />
+    <ClInclude Include="LogicEngine.h" />
     <ClInclude Include="module11.h" />
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="consistency.h" />
