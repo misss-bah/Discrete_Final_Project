@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include "Course.h"   // For MAX_COURSES
+
 using namespace std;
 
 const int MAX_RULES = 100;
@@ -19,8 +21,8 @@ struct Proposition {
 // Logic Rule (If-Then structure)
 class LogicRule {
 private:
-    string antecedent;  // If part
-    string consequent;  // Then part
+    string antecedent;
+    string consequent;
     string ruleDescription;
     bool isActive;
 
@@ -51,7 +53,6 @@ private:
 
     bool containsFact(const string& fact) const;
     void addInferenceLog(const string& log);
-    bool backwardChainingHelper(const string& goal, int depth);
 
 public:
     InferenceEngine();
@@ -68,23 +69,19 @@ public:
     void displayRules() const;
     void displayFacts() const;
     void displayInferenceLog() const;
-
-    int getRuleCount() const { return ruleCount; }
-    int getFactCount() const { return factCount; }
 };
 
-// Logic Module for FAST University
+// Logic Module
 class LogicModule {
 private:
     InferenceEngine engine;
 
-    // Course-Faculty-Room mappings
     struct Assignment {
         string course;
         string faculty;
         string room;
     };
-    Assignment assignments[100];
+    Assignment assignments[MAX_COURSES];
     int assignmentCount;
 
 public:

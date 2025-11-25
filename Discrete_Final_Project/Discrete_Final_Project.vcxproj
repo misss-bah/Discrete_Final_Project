@@ -128,9 +128,8 @@
     <ClCompile Include="Groups.cpp" />
     <ClCompile Include="Induction.cpp" />
     <ClCompile Include="LogicEngine.cpp" />
-    <ClCompile Include="main1.cpp" />
-    <ClCompile Include="main2_module11.cpp" />
     <ClCompile Include="efficiency.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="module11.cpp" />
     <ClCompile Include="benchmark.cpp" />
     <ClCompile Include="consistency.cpp" />

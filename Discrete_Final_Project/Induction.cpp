@@ -160,7 +160,7 @@ bool InductionProver::recursivePrereqCheck(const string& course,
     }
 
     if (courseIdx == -1) {
-        return true;
+        return true; // Course not in system, assume no prereqs
     }
 
     if (completed[courseIdx]) {
@@ -243,6 +243,7 @@ bool InductionModule::verifyCanTakeCourse(const string& targetCourse,
 
     cout << "\n=== Verifying Prerequisites for: " << targetCourse << " ===" << endl;
 
+    // Check all prerequisites
     for (int i = 0; i < prereqCounts[idx]; i++) {
         bool found = false;
         for (int j = 0; j < completedCount; j++) {
