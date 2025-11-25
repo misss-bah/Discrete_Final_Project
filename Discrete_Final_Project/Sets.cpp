@@ -24,13 +24,11 @@ void SetModule::addRoom(const string& room) {
 }
 
 void SetModule::findStudentsInBothCourses(const string& course1, const string& course2)
-{ 
+{
 
-    // Simulated: Create two sets of students enrolled in each course
     Set<string> course1Students;
     Set<string> course2Students;
 
-    // Adding some sample students
     for (int i = 0; i < students.getSize(); i++)
     {
         if (i % 2 == 0)
@@ -67,38 +65,38 @@ void SetModule::demonstrateSetOperations() {
     setB.add("SE301");
     setB.add("SE401");
 
-    cout << endl<< "Set A : ";
+    cout << endl << "Set A : ";
     setA.display();
-    cout << endl<< "Set B : ";
+    cout << endl << "Set B : ";
     setB.display();
 
     Set<string> unionSet = setA.unionWith(setB);
     cout << endl << endl;
-    cout << "A ∪ B (Union) : ";
+    cout << "A U B (Union) : ";
     unionSet.display();
 
     Set<string> intersectionSet = setA.intersectionWith(setB);
-    cout << endl<< "A ∩ B (Intersection) : ";
+    cout << endl << "A (Intersection) B  : ";
     intersectionSet.display();
 
     Set<string> differenceSet = setA.differenceWith(setB);
-    cout << endl<<"A - B (Difference) : ";
+    cout << endl << "A - B (Difference) : ";
     differenceSet.display();
 
     Set<string> symDiffSet = setA.symmetricDifference(setB);
-    cout << endl<<"A Δ B (Symmetric Difference) : ";
+    cout << endl << "A (Symmetric Difference) B  : ";
     symDiffSet.display();
 
     cout << endl << endl;
     cout << "Set Properties :" << endl;
-    cout << "A ⊆ B? " << (setA.isSubsetOf(setB) ? "Yes" : "No") << endl;
-    cout << "B ⊆ A? " << (setB.isSubsetOf(setA) ? "Yes" : "No") << endl;
+    cout << "A subset B? " << (setA.isSubsetOf(setB) ? "Yes" : "No") << endl;
+    cout << "B subset A? " << (setB.isSubsetOf(setA) ? "Yes" : "No") << endl;
     cout << "A = B? " << (setA.isEqual(setB) ? "Yes" : "No") << endl;
     cout << endl;
 }
 
 void SetModule::generatePowerSet(const string& setType) {
-    cout << endl<<"=== POWER SET GENERATION ===" << endl;
+    cout << endl << "=== POWER SET GENERATION ===" << endl;
     cout << "Generating power set for " << setType << endl;
 
     Set<string> baseSet;
@@ -108,10 +106,10 @@ void SetModule::generatePowerSet(const string& setType) {
 
     cout << "Base Set : ";
     baseSet.display();
-    cout << endl<<endl<<"Power Set :" << endl;
+    cout << endl << endl << "Power Set :" << endl;
 
     int n = baseSet.getSize();
-    int powerSetSize = 1 << n; // 2^n
+    int powerSetSize = 1 << n;
 
     for (int i = 0; i < powerSetSize; i++) {
         cout << "{ ";
@@ -124,13 +122,13 @@ void SetModule::generatePowerSet(const string& setType) {
         cout << "}" << endl;
     }
 
-    cout << endl<<"Total subsets : " << powerSetSize << endl;
+    cout << endl << "Total subsets : " << powerSetSize << endl;
 }
 
 void SetModule::displayAllSets() const {
-    cout << endl<<"=== ALL SETS ===" << endl;
+    cout << endl << "=== ALL SETS ===" << endl;
 
-    cout << endl<<"Students : ";
+    cout << endl << "Students : ";
     students.display();
     cout << " (Size : " << students.getSize() << ")" << endl;
 

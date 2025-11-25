@@ -24,7 +24,7 @@ public:
     bool isEmpty() const {
         return size == 0;
     }
-    int getSize() const { 
+    int getSize() const {
         return size;
     }
     T getElement(int index) const;

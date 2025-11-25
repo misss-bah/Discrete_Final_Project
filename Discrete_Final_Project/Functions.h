@@ -153,4 +153,28 @@ void Function<Domain, Codomain>::display() const {
     cout << " }";
 }
 
+template<typename Domain, typename Codomain>
+Function<Domain, Codomain> Function<Domain, Codomain>::compose(const Function<Codomain, Domain>& other) const {
+    Function<Domain, Codomain> result;
+    for (int i = 0; i < mappingCount; i++) {
+        for (int j = 0; j < other.mappingCount; j++) {
+            if (mappings[i].output == other.mappings[j].input) {
+                result.addMapping(mappings[i].input, other.mappings[j].output);
+            }
+        }
+    }
+    return result;
+}
+
+template<typename Domain, typename Codomain>
+Function<Codomain, Domain> Function<Domain, Codomain>::inverse() const {
+    Function<Codomain, Domain> result;
+    if (isInjective()) {
+        for (int i = 0; i < mappingCount; i++) {
+            result.addMapping(mappings[i].output, mappings[i].input);
+        }
+    }
+    return result;
+}
+
 #endif

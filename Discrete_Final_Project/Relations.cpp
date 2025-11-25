@@ -1,4 +1,4 @@
-#include "Relations.h"
+﻿#include "Relations.h"
 
 RelationModule::RelationModule() {}
 
@@ -19,7 +19,7 @@ void RelationModule::checkRelationProperties() {
     int size = 3;
 
     cout << endl;
-    cout << "Checking Relation Properties for Student -> Course :" << endl;
+    cout << "Checking Relation Properties for Student → Course :" << endl;
     cout << "Reflexive : " << (studentCourse.isReflexive(domain, size) ? "Yes" : "No") << endl;
     cout << "Symmetric : " << (studentCourse.isSymmetric() ? "Yes" : "No") << endl;
     cout << "Transitive : " << (studentCourse.isTransitive() ? "Yes" : "No") << endl;

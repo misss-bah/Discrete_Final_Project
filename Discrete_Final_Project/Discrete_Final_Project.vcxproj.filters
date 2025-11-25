@@ -30,6 +30,9 @@
     <ClCompile Include="Relations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Proofs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Course.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Relations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Proofs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
