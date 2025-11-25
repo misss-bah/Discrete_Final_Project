@@ -143,7 +143,6 @@
     <ClInclude Include="efficiency.h" />
     <ClInclude Include="Induction.h" />
     <ClInclude Include="LogicEngine.h" />
-    <ClInclude Include="module11.h" />
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="consistency.h" />
     <ClInclude Include="Relations.h" />
