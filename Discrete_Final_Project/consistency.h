@@ -1,6 +1,6 @@
 //#pragma once
-//#ifndef MODULE9_H
-//#define MODULE9_H
+//#ifndef CONSISTENCY_H
+//#define CONSISTENCY_H
 //#include <iostream>
 //#include <string>
 //using namespace std;

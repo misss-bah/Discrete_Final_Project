@@ -127,7 +127,11 @@
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Groups.cpp" />
     <ClCompile Include="main1.cpp" />
-    <ClCompile Include="module9.cpp" />
+    <ClCompile Include="main2_module11.cpp" />
+    <ClCompile Include="module10.cpp" />
+    <ClCompile Include="module11.cpp" />
+    <ClCompile Include="benchmark.cpp" />
+    <ClCompile Include="consistency.cpp" />
     <ClCompile Include="Relations.cpp" />
     <ClCompile Include="Sets.cpp" />
   </ItemGroup>
@@ -135,7 +139,10 @@
     <ClInclude Include="Course.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Groups.h" />
-    <ClInclude Include="module9.h" />
+    <ClInclude Include="module10.h" />
+    <ClInclude Include="module11.h" />
+    <ClInclude Include="benchmark.h" />
+    <ClInclude Include="consistency.h" />
     <ClInclude Include="Relations.h" />
     <ClInclude Include="Sets.h" />
   </ItemGroup>
