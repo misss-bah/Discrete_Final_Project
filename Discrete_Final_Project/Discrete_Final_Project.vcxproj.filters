@@ -33,12 +33,6 @@
     <ClCompile Include="Groups.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main2_module11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="efficiency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,10 +45,13 @@
     <ClCompile Include="consistency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Induction.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="LogicEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Induction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
