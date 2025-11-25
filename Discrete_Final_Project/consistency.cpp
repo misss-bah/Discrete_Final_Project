@@ -1,116 +1,104 @@
-//#include"consistency.h"
-//
-//ConsistencyModule::ConsistencyModule() {}
-//void ConsistencyModule::runRoomCheckDemo() {
-//	string courses[] = { "CS101", "MATH201", "ENG301", "HIST101" };
-//	string rooms[] = { "RoomA", "RoomB", "RoomA", "RoomC" };
-//	int count = 4;
-//	checker.clearReport();
-//	checker.checkRoomConflict(courses, rooms, count);
-//	const ConsistencyReport& report = checker.getReport();
-//	cout << "Room Conflict Check Report:\n";
-//	for (int i = 0; i < report.conflictCount; i++) {
-//		cout << report.conflictLog[i] << endl;
-//	}
-//}
-//void ConsistencyModule::runFacultyCheckDemo() {
-//	string courses[] = { "CS101", "MATH201", "ENG301", "HIST101" };
-//	string faculty[] = { "Dr. Smith", "Dr. Jones", "Dr. Smith", "Dr. Brown" };
-//	int count = 4;
-//	checker.clearReport();
-//	checker.checkFacultyConflict(courses, faculty, count);
-//	const ConsistencyReport& report = checker.getReport();
-//	cout << "Faculty Conflict Check Report:\n";
-//	for (int i = 0; i < report.conflictCount; i++) {
-//		cout << report.conflictLog[i] << endl;
-//	}
-//}
-//void ConsistencyModule::runPrereqCheckDemo() {
-//	Course course;
-//	course.code = "CS201";
-//	course.prereqCount = 2;
-//	course.prerequisites[0] = "CS101";
-//	course.prerequisites[1] = "MATH101";
-//	Student student;
-//	student.name = "Alice";
-//	student.completedCount = 1;
-//	student.completedCourses[0] = "CS101";
-//	checker.clearReport();
-//	checker.checkMissingPrereqs(course, student);
-//	const ConsistencyReport& report = checker.getReport();
-//	cout << "Prerequisite Check Report:\n";
-//	for (int i = 0; i < report.conflictCount; i++) {
-//		cout << report.conflictLog[i] << endl;
-//	}
-//}
-//void ConsistencyModule::runOverloadCheckDemo() {
-//	int totalCredits = 24;
-//	checker.clearReport();
-//	checker.checkOverload(totalCredits);
-//	const ConsistencyReport& report = checker.getReport();
-//	cout << "Overload Check Report:\n";
-//	for (int i = 0; i < report.conflictCount; i++) {
-//		cout << report.conflictLog[i] << endl;
-//	}
-//}
-//ConsistencyChecker::ConsistencyChecker() {
-//	report.conflictCount = 0;
-//}
-//void ConsistencyChecker::logConflict(const string& conflict) {
-//	if (report.conflictCount < MAX_CONFLICTS) {
-//		report.conflictLog[report.conflictCount++] = conflict;
-//	}
-//}
-//void ConsistencyChecker::clearReport() {
-//	report.conflictCount = 0;
-//}
-//bool ConsistencyChecker::checkMissingPrereqs(const Course& course, const Student& student) {
-//	for (int i = 0; i < course.prereqCount; i++) {
-//		bool found = false;
-//		for (int j = 0; j < student.completedCount; j++) {
-//			if (course.prerequisites[i] == student.completedCourses[j]) {
-//				found = true;
-//				break;
-//			}
-//		}
-//		if (!found) {
-//			logConflict("Missing prerequisite for " + course.code + ": " + course.prerequisites[i]);
-//		}
-//	}
-//	return report.conflictCount == 0;
-//}
-//bool ConsistencyChecker::checkRoomConflict(const string courses[], const string rooms[], int count) {
-//	for (int i = 0; i < count; i++) {
-//		for (int j = i + 1; j < count; j++) {
-//			if (rooms[i] == rooms[j]) {
-//				logConflict("Room conflict: " + courses[i] + " and " + courses[j] +
-//					" both assigned to room " + rooms[i]);
-//			}
-//		}
-//	}
-//	return report.conflictCount == 0;
-//}
-//bool ConsistencyChecker::checkFacultyConflict(const string courses[], const string faculty[], int count) {
-//	for (int i = 0; i < count; i++) {
-//		for (int j = i + 1; j < count; j++) {
-//			if (faculty[i] == faculty[j]) {
-//				logConflict("Faculty conflict: " + faculty[i] +
-//					" assigned to both " + courses[i] + " and " + courses[j]);
-//			}
-//		}
-//	}
-//	return report.conflictCount == 0;
-//}
-//bool ConsistencyChecker::checkOverload(int totalCredits) {
-//	if (totalCredits > 21) {
-//		logConflict("Student overload: " + to_string(totalCredits) + " credits exceeds limit.");
-//		return false;
-//	}
-//	return true;
-//}
-//const ConsistencyReport& ConsistencyChecker::getReport() const {
-//	return report;
-//}
-//
-//
-//
+#include "Consistency.h"
+
+ConsistencyChecker::ConsistencyChecker() : conflictCount(0) {}
+
+void ConsistencyChecker::logConflict(const string& conflict) {
+    if (conflictCount < MAX_CONFLICTS) {
+        conflictLog[conflictCount++] = conflict;
+    }
+}
+
+void ConsistencyChecker::clear() {
+    conflictCount = 0;
+}
+
+bool ConsistencyChecker::checkMissingPrereqs(const string course, const string prereqs[],
+    int prereqCount, const string completed[],
+    int completedCount)
+{
+    for (int i = 0; i < prereqCount; i++) {
+        bool found = false;
+        for (int j = 0; j < completedCount; j++) {
+            if (prereqs[i] == completed[j]) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            logConflict("Missing prerequisite: " + prereqs[i] + " for course " + course);
+        }
+    }
+    return conflictCount == 0;
+}
+
+bool ConsistencyChecker::checkRoomConflict(const string courses[], const string rooms[], int count) {
+    for (int i = 0; i < count; i++) {
+        for (int j = i + 1; j < count; j++) {
+            if (rooms[i] == rooms[j]) {
+                logConflict("Room conflict: " + courses[i] + " and " + courses[j] +
+                    " both assigned to room " + rooms[i]);
+            }
+        }
+    }
+    return conflictCount == 0;
+}
+
+bool ConsistencyChecker::checkFacultyConflict(const string courses[], const string faculty[], int count) {
+    for (int i = 0; i < count; i++) {
+        for (int j = i + 1; j < count; j++) {
+            if (faculty[i] == faculty[j]) {
+                logConflict("Faculty conflict: " + faculty[i] +
+                    " assigned to both " + courses[i] + " and " + courses[j]);
+            }
+        }
+    }
+    return conflictCount == 0;
+}
+
+bool ConsistencyChecker::checkOverload(int totalCredits) {
+    if (totalCredits > 21) {
+        logConflict("Student overload: " + to_string(totalCredits) + " credits exceeds limit.");
+        return false;
+    }
+    return true;
+}
+
+void ConsistencyChecker::displayConflicts() const {
+    if (conflictCount == 0) {
+        cout << "No conflicts found. System is consistent.\n";
+        return;
+    }
+    cout << "\n=== CONSISTENCY CONFLICTS ===\n";
+    for (int i = 0; i < conflictCount; i++) {
+        cout << conflictLog[i] << endl;
+    }
+    cout << "==============================\n";
+}
+
+ConsistencyModule::ConsistencyModule() {}
+
+void ConsistencyModule::runRoomCheckDemo() {
+    string courses[3] = { "CS101", "CS201", "CS301" };
+    string rooms[3] = { "R1", "R1", "R3" };
+    checker.checkRoomConflict(courses, rooms, 3);
+    checker.displayConflicts();
+}
+
+void ConsistencyModule::runFacultyCheckDemo() {
+    string courses[3] = { "CS101", "CS201", "CS202" };
+    string faculty[3] = { "Dr.Ali", "Dr.Ali", "Dr.Sara" };
+    checker.checkFacultyConflict(courses, faculty, 3);
+    checker.displayConflicts();
+}
+
+void ConsistencyModule::runPrereqCheckDemo() {
+    string prereqs[2] = { "CS101", "CS102" };
+    string completed[1] = { "CS101" };
+    checker.checkMissingPrereqs("CS201", prereqs, 2, completed, 1);
+    checker.displayConflicts();
+}
+
+void ConsistencyModule::runOverloadCheckDemo() {
+    checker.checkOverload(24);
+    checker.displayConflicts();
+}

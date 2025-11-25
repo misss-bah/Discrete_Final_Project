@@ -1,71 +1,46 @@
-#pragma once
 #ifndef CONSISTENCY_H
 #define CONSISTENCY_H
+
 #include <iostream>
 #include <string>
 using namespace std;
 
-#define MAX_CONFLICTS 100
-#define MAX_ROOMS 50
-#define MAX_CREDITS 21
-#define MAX_COURSES 50
-#define MAX_STUDENTS 200
-#define MAX_FACULTY 50
-#define MAX_PREREQS_PER_COURSE 10
-#define MAX_ENROLLED_PER_STUDENT 10
-#define MAX_ASSIGNED_PER_FACULTY 10
-
-struct Course {
-	string code;
-	string name;
-	int credits;
-	string prerequisites[MAX_PREREQS_PER_COURSE];
-	int prereqCount;
-};
-
-struct Student {
-	string name;
-	string completedCourses[MAX_COURSES];
-	int completedCount;
-	string enrolledCourses[MAX_ENROLLED_PER_STUDENT];
-	int enrolledCount;
-};
-
-struct Faculty {
-	string name;
-	string assignedCourses[MAX_ASSIGNED_PER_FACULTY];
-	int assignedCount;
-};
-
-struct ConsistencyReport {
-	string conflictLog[MAX_CONFLICTS];
-	int conflictCount;
-};
+const int MAX_CONFLICTS = 200;
 
 class ConsistencyChecker {
-	private:
-		ConsistencyReport report;
+private:
+    string conflictLog[MAX_CONFLICTS];
+    int conflictCount;
+
 public:
-	ConsistencyChecker();
-		void logConflict(const string& conflict);
-		void clearReport();
-		bool checkMissingPrereqs(const Course& course, const Student& student);
-		bool checkRoomConflict(const string courses[], const string rooms[], int count);
-		bool checkFacultyConflict(const string courses[], const string faculty[], int count);
-		bool checkOverload(int totalCredits);
-		const ConsistencyReport& getReport() const;
+    ConsistencyChecker();
+
+    void logConflict(const string& conflict);
+    void clear();
+
+    bool checkMissingPrereqs(const string course, const string prereqs[], int prereqCount,
+        const string completed[], int completedCount);
+
+    bool checkRoomConflict(const string courses[], const string rooms[], int count);
+    bool checkFacultyConflict(const string courses[], const string faculty[], int count);
+
+    bool checkOverload(int totalCredits);
+
+    void displayConflicts() const;
+    bool isConsistent() const { return conflictCount == 0; }
 };
 
 class ConsistencyModule {
-	private:
-		ConsistencyChecker checker;
-public:
-	ConsistencyModule();
-		void runRoomCheckDemo();
-		void runFacultyCheckDemo();
-		void runPrereqCheckDemo();
-		void runOverloadCheckDemo();
-};
+private:
+    ConsistencyChecker checker;
 
+public:
+    ConsistencyModule();
+
+    void runRoomCheckDemo();
+    void runFacultyCheckDemo();
+    void runPrereqCheckDemo();
+    void runOverloadCheckDemo();
+};
 
 #endif

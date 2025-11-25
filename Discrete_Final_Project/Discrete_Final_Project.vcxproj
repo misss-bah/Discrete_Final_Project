@@ -129,8 +129,6 @@
     <ClCompile Include="Induction.cpp" />
     <ClCompile Include="LogicEngine.cpp" />
     <ClCompile Include="efficiency.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="module11.cpp" />
     <ClCompile Include="benchmark.cpp" />
     <ClCompile Include="consistency.cpp" />
     <ClCompile Include="Relations.cpp" />
@@ -143,7 +141,6 @@
     <ClInclude Include="efficiency.h" />
     <ClInclude Include="Induction.h" />
     <ClInclude Include="LogicEngine.h" />
-    <ClInclude Include="module11.h" />
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="consistency.h" />
     <ClInclude Include="Relations.h" />
