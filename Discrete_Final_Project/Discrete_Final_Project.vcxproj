@@ -122,18 +122,29 @@
   </ItemDefinitionGroup>
   <!-- CLEANED: Removed duplicate FileName.cpp -->
   <ItemGroup>
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Functions.cpp" />
-    <ClCompile Include="module9.cpp" />
-    <ClCompile Include="Proofs.cpp" />
+    <ClCompile Include="Groups.cpp" />
+    <ClCompile Include="Induction.cpp" />
+    <ClCompile Include="LogicEngine.cpp" />
+    <ClCompile Include="main1.cpp" />
+    <ClCompile Include="main2_module11.cpp" />
+    <ClCompile Include="efficiency.cpp" />
+    <ClCompile Include="benchmark.cpp" />
+    <ClCompile Include="consistency.cpp" />
     <ClCompile Include="Relations.cpp" />
     <ClCompile Include="Sets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Course.h" />
     <ClInclude Include="Functions.h" />
-    <ClInclude Include="module9.h" />
-    <ClInclude Include="Proofs.h" />
+    <ClInclude Include="Groups.h" />
+    <ClInclude Include="efficiency.h" />
+    <ClInclude Include="Induction.h" />
+    <ClInclude Include="LogicEngine.h" />
+    <ClInclude Include="benchmark.h" />
+    <ClInclude Include="consistency.h" />
     <ClInclude Include="Relations.h" />
     <ClInclude Include="Sets.h" />
   </ItemGroup>
