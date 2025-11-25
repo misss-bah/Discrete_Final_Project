@@ -1,6 +1,6 @@
 #include "Benchmark.h"
 #include "Sets.h"
-#include "Courses.h"
+#include "Course.h"
 #include "Relations.h"
 #include "Induction.h"
 #include "LogicEngine.h"
