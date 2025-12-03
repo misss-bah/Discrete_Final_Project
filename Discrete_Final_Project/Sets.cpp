@@ -25,14 +25,12 @@ void SetModule::addRoom(const string& room) {
 
 void SetModule::findStudentsInBothCourses(const string& course1, const string& course2)
 { 
-
     // Simulated: Create two sets of students enrolled in each course
     Set<string> course1Students;
     Set<string> course2Students;
 
-    // Adding some sample students
-    for (int i = 0; i < students.getSize(); i++)
-    {
+    // Adding some sample students based on stored students
+    for (int i = 0; i < students.getSize(); i++) {
         if (i % 2 == 0)
             course1Students.add(students.getElement(i));
         if (i % 3 == 0)
@@ -115,8 +113,7 @@ void SetModule::generatePowerSet(const string& setType) {
 
     for (int i = 0; i < powerSetSize; i++) {
         cout << "{ ";
-        for (int j = 0; j < n; j++)
-        {
+        for (int j = 0; j < n; j++) {
             if (i & (1 << j)) {
                 cout << baseSet.getElement(j) << " ";
             }
